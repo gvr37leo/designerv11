@@ -26,12 +26,7 @@ class DetailView{
         if(this.objdef == null){
             this.attributes = []
         }else{
-            this.attributes = getchildren(this.objdef._id).slice()
-            if(this.objdef.extends){
-                let parentobjdef = idmap[this.objdef.extends]
-                let parentattributes = groupparent[parentobjdef._id]
-                this.attributes.push(...parentattributes)
-            }
+            this.attributes = getAttributes(this.objdef._id)
 
             let copylist = []
             for(var attribute of this.attributes){
@@ -212,6 +207,15 @@ class DetailView{
         // like this {<nameofattribute>:entity._id}
         
     }
+}
+
+function getAttributes(objdefid){
+    let objdef = deref(objdefid)
+    let result = getchildren(objdefid).slice()
+    if(objdef.extends){
+        result.splice(0,0,...getchildren(objdef.extends))
+    }
+    return result
 }
 
 function deref(id){

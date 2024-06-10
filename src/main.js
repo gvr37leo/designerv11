@@ -1,84 +1,62 @@
 
 //todo
-
-
-//export db
-//avadent case study
+//image type
 //give objdefs an icon to show in the treeview
+//avadent case study
+//clone tree
 //roles in containers zodat je de extra functionaliteit krijgt van admins/beheerders
 //UI/toasts for denied permissions
-//create objects of type
-//image type
 //rich text
 //find/cleanup orphans
-//container type/attribute?
+//list type/attribute?
 
+cr('div',{style:'display:flex; justify-content:space-between;'})
+    cr('div',{style:'display:flex; align-items:flex-start; gap:10px;'})
+        crend('button','get',{class:'btn btn-primary'}).on('click',async () => {
+            var data = await query({},{})
+            console.log(data)
+        })
 
-//crud rights are given a certain node scope
-//backend
-//admin mag admins,beheerders en gebruikers inviten/verwijderen, mag alle crud
-//beheerder,mag gebruikers inviten/verwijderen, crud tot een bepaalde scope
-//gebruiker,mag niks, behalve crud tot een bepaalde scope
+        crend('button','init',{class:'btn btn-primary'}).on('click',async () => {
+            var data = generateSelfdef()
+            await createMany(data)
+            console.log('created')
+        })
 
-//frontend gebruiker
-//zeer beperkte crud mogelijkheden
-//profiel, comments, bepaalde dingen wel of niet zien
+        crend('button','delete',{class:'btn btn-primary'}).on('click',async () => {
+            var res = await remove({})
+            console.log(res)
+        })
 
-//crud rechten vloeien naarbeneden
-//wanneer je iets create update of delete, volg de parent chain en kijk of je jezelf tegenkomt in de rechten, anders mag het niet
-//met read, filter uit nodes die je niet mag zien
+        var mytextarea = crend('textarea','',{})
 
-//stap1, maak user entity
-//stap2, maak login scherm (sign up gaat via inv)
-//sign up, stuur email
-//stuur verificatie mee met crud requests
+        crend('button','export',{class:'btn btn-primary'}).on('click',async () => {
+            var res = await query({})
+            mytextarea.value = JSON.stringify(res,null,2)
+        })
 
-// kan alvast prototype maken zonder wachtwoord
+        crend('button','import',{class:'btn btn-primary'}).on('click',async () => {
+            var data = JSON.parse(mytextarea.value) 
+            var res = await createMany(data)
+        })
+    end()
 
-cr('div',{style:'display:flex; align-items:flex-start; gap:10px;'})
-    crend('button','get',{class:'btn btn-primary'}).on('click',async () => {
-        var data = await query({},{})
-        console.log(data)
-    })
-
-    crend('button','init',{class:'btn btn-primary'}).on('click',async () => {
-        var data = generateSelfdef()
-        await createMany(data)
-        console.log('created')
-    })
-
-    crend('button','delete',{class:'btn btn-primary'}).on('click',async () => {
-        var res = await remove({})
-        console.log(res)
-    })
-
-    var mytextarea = crend('textarea','',{})
-
-    crend('button','export',{class:'btn btn-primary'}).on('click',async () => {
-        var res = await query({})
-        mytextarea.value = JSON.stringify(res,null,2)
-    })
-
-    crend('button','import',{class:'btn btn-primary'}).on('click',async () => {
-        var data = JSON.parse(mytextarea.value) 
-        var res = await createMany(data)
-    })
-end()
-crend('br')
-cr('div',{style:'display:flex;align-items:flex-start;gap:10px;'})
-    var usernameinput = crend('input')
-    crend('button','login',{class:'btn btn-primary'}).on('click',async () => {
-        var res = await fetch('/api/login',{
-            method:'POST',
-            headers:{
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify({username:usernameinput.value})
-        }).then(res => res.json())
-        localStorage.setItem('sessionid',res.sessionid)
-        console.log(res)
-    })
-    let sessioniddiv = crend('div','',{style:'white-space:nowrap;'})
+    cr('div',{style:'display:flex;align-items:flex-start;gap:10px;'})
+        crend('a','mongodb',{href:'https://cloud.mongodb.com/v2/5f63b72f634422449781b510#/metrics/replicaSet/661f9cbfaae012631f280233/explorer/testdb/firstcollection/find'})
+        let sessioniddiv = crend('div','',{style:'white-space:nowrap;'})
+        var usernameinput = crend('input')
+        crend('button','login',{class:'btn btn-primary'}).on('click',async () => {
+            var res = await fetch('/api/login',{
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({username:usernameinput.value})
+            }).then(res => res.json())
+            localStorage.setItem('sessionid',res.sessionid)
+            console.log(res)
+        })
+    end()
 end()
 crend('br')
 

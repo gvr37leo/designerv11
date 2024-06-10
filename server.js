@@ -10,6 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }));//for route parameters
 app.use(express.static('./'))
 
 let url = 'mongodb+srv://paul:$RF5tg^YH@designerv10.bai64.mongodb.net/testdb?retryWrites=true&w=majority';
+// https://cloud.mongodb.com/v2/5f63b72f634422449781b510#/metrics/replicaSet/661f9cbfaae012631f280233/explorer/testdb/firstcollection/find
 let databasename = 'testdb'
 let port = 8000
 app.listen(port, () => {
@@ -157,6 +158,7 @@ async function start(){
                 if(entity._id == null){
                     entity._id = Math.floor(Math.random() * 1000000000)
                 }
+                entity.order = entity.order ?? 1
                 entity.createdAt = Date.now()
                 entity.updatedAt = Date.now()
             }

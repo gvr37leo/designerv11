@@ -150,6 +150,29 @@ class Treenode{
                             await refreshrerender()
                         })
                     },
+                    () => {
+                        //list of buttons
+                        //look at node's type, look at the objef, look at the pointer objdefs below
+                        //these are the allowed types
+                        //foreach create a button that quickly generates an item with this type
+                        let objef = deref(item.type)
+
+                        let allowedtypes = getchildren(objef._id).filter(c => c.type == namemap['proxy']._id).map(p => deref(p.ref))
+
+                        cr('div',{style:'display:flex; flex-direction:column;'})
+                            for(let type of allowedtypes){
+                                crend('button',type.name).on('click',async () => {
+                                    await createOne({
+                                        _id:null,
+                                        name:'new entity',
+                                        parent:item._id,
+                                        type:type._id,
+                                    })
+                                    await refreshrerender()
+                                })
+                            }
+                        end()
+                    }
                 ])
             end()
             
@@ -178,21 +201,52 @@ function treenode(item){
 }
 
 
-//text,callback
-function dropdownMenu(cbs){
 
-    cr('span',{style:'position:relative;',class:'hover'})
-        crend('button','...',{style:''}).on('click',() => {
-            if(container.style.display == 'none'){
-                container.style.display = 'flex'
-            }else{
-                container.style.display = 'none'
-            }
-        })
-        let container = cr('div',{style:'display:none; position:absolute; z-index:1; flex-direction:column;left:0px;'})
-            for(let cb of cbs){
-                cb()
+
+function dropdownMenu(cbs){
+    // https://getbootstrap.com/docs/5.3/components/dropdowns/#overview
+
+
+    cr('div',{class:'dropdown hover'})
+        crend('button','...',{class:'btn btn-primary dropdown-toggle',type:'button',"data-bs-toggle":'dropdown'})
+        cr('ul',{class:'dropdown-menu'})
+            for(var cb of cbs){
+                cr('li')
+                    cr('a',{class:'dropdown-item'})
+                        cb()
+                    end()
+                end()
             }
         end()
     end()
+
+    // <div class="dropdown">
+    //     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    //         Dropdown button
+    //     </button>
+    //     <ul class="dropdown-menu">
+    //         <li><a class="dropdown-item" href="#">Action</a></li>
+    //         <li><a class="dropdown-item" href="#">Another action</a></li>
+    //         <li><a class="dropdown-item" href="#">Something else here</a></li>
+    //     </ul>
+    // </div>
 }
+
+// function dropdownMenu(cbs){
+//     // https://getbootstrap.com/docs/5.3/components/dropdowns/#overview
+
+//     cr('span',{style:'position:relative;',class:'hover'})
+//         crend('button','...',{style:''}).on('click',() => {
+//             if(container.style.display == 'none'){
+//                 container.style.display = 'flex'
+//             }else{
+//                 container.style.display = 'none'
+//             }
+//         })
+//         let container = cr('div',{style:'display:none; position:absolute; z-index:1; flex-direction:column;left:0px;'})
+//             for(let cb of cbs){
+//                 cb()
+//             }
+//         end()
+//     end()
+// }
