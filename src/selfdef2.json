@@ -5,8 +5,11 @@
       "parent": 37880666,
       "type": 95883802,
       "extends": null,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714821988213
+      "createdAt": 1744525363575,
+      "updatedAt": 1744622879894,
+      "order": 1,
+      "icon": "bi-cloud",
+      "iconcolor": "#000000"
     },
     {
       "_id": 95271786,
@@ -16,8 +19,9 @@
       "extends": 34338359,
       "datatype": 41936734,
       "pointertype": 34338359,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714470621934
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 76470349,
@@ -27,9 +31,9 @@
       "extends": 34338359,
       "datatype": 41936734,
       "pointertype": 95883802,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714814599332,
-      "order": null
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 74972031,
@@ -38,8 +42,9 @@
       "type": 68130130,
       "extends": 34338359,
       "datatype": 75908361,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714470621934
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 68130130,
@@ -47,8 +52,11 @@
       "parent": 37880666,
       "type": 95883802,
       "extends": 34338359,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714822013683
+      "createdAt": 1744525363575,
+      "updatedAt": 1744626516735,
+      "order": 1,
+      "icon": "bi-plus",
+      "iconcolor": "#f51800"
     },
     {
       "_id": 33264638,
@@ -56,8 +64,11 @@
       "parent": 37880666,
       "type": 95883802,
       "extends": 34338359,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714821976314
+      "createdAt": 1744525363575,
+      "updatedAt": 1744626422556,
+      "order": 1,
+      "icon": "bi-tree",
+      "iconcolor": "#03c200"
     },
     {
       "_id": 1490886,
@@ -66,8 +77,8 @@
       "type": 33264638,
       "extends": 34338359,
       "typedef": 8765087,
-      "createdAt": 1714470621934,
-      "updatedAt": 1715073413327,
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
       "order": 3
     },
     {
@@ -75,9 +86,9 @@
       "name": "users",
       "parent": 8765087,
       "type": 34338359,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714470621934,
-      "order": null
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 76033295,
@@ -86,8 +97,9 @@
       "type": 68130130,
       "extends": 34338359,
       "datatype": 13543148,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714470621934
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 41936734,
@@ -95,8 +107,9 @@
       "parent": 236162914,
       "type": 47261107,
       "extends": 34338359,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714822093994
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 84034547,
@@ -104,9 +117,9 @@
       "parent": 37880666,
       "type": 95883802,
       "extends": 34338359,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714821962603,
-      "order": null
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 89300114,
@@ -115,9 +128,9 @@
       "type": 68130130,
       "extends": 34338359,
       "datatype": 27080254,
-      "createdAt": 1714470621934,
-      "updatedAt": 1715076177035,
-      "order": null
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 35434766,
@@ -125,8 +138,11 @@
       "parent": 139967560,
       "type": 95883802,
       "extends": 34338359,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714833243413
+      "createdAt": 1744525363575,
+      "updatedAt": 1744622983990,
+      "order": 1,
+      "icon": "bi-person",
+      "iconcolor": "#000000"
     },
     {
       "_id": 14159843,
@@ -136,8 +152,9 @@
       "extends": 34338359,
       "datatype": 41936734,
       "pointertype": 95883802,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714759290573
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 73614581,
@@ -147,9 +164,9 @@
       "extends": 34338359,
       "datatype": 41936734,
       "pointertype": 95883802,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714681995317,
-      "order": null
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 32888043,
@@ -158,8 +175,9 @@
       "type": 68130130,
       "extends": 34338359,
       "datatype": 13543148,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714470621934
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 98569176,
@@ -168,8 +186,8 @@
       "type": 33264638,
       "extends": 34338359,
       "typedef": null,
-      "createdAt": 1714470621934,
-      "updatedAt": 1715073402857,
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
       "order": 1
     },
     {
@@ -178,8 +196,9 @@
       "parent": 236162914,
       "type": 47261107,
       "extends": 34338359,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714822102561
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 13543148,
@@ -187,17 +206,18 @@
       "parent": 236162914,
       "type": 47261107,
       "extends": 34338359,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714822106491
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 101324600,
       "name": "paul",
       "parent": 592185926,
       "type": 84034547,
-      "createdAt": 1714470621934,
-      "updatedAt": 1715076182593,
-      "order": null,
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1,
       "role": 642032032,
       "sessionid": 752503905
     },
@@ -208,8 +228,8 @@
       "type": 33264638,
       "extends": 34338359,
       "typedef": 98569176,
-      "createdAt": 1714470621934,
-      "updatedAt": 1715073416665,
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
       "order": 2
     },
     {
@@ -218,8 +238,9 @@
       "parent": 236162914,
       "type": 47261107,
       "extends": 34338359,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714822087090
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 27080254,
@@ -227,8 +248,9 @@
       "parent": 236162914,
       "type": 47261107,
       "extends": 34338359,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714822099425
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 58677240,
@@ -237,9 +259,9 @@
       "type": 68130130,
       "extends": 34338359,
       "datatype": 41936734,
-      "createdAt": 1714470621934,
-      "updatedAt": 1715073700493,
-      "order": null,
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1,
       "pointertype": 171648616,
       "tree": null
     },
@@ -250,8 +272,9 @@
       "type": 68130130,
       "extends": 34338359,
       "datatype": 25656069,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714470621934
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 55860318,
@@ -260,8 +283,9 @@
       "type": 68130130,
       "extends": 34338359,
       "datatype": 27080254,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714470621934
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 47261107,
@@ -269,9 +293,11 @@
       "parent": 37880666,
       "type": 95883802,
       "extends": 34338359,
-      "createdAt": 1714470621934,
-      "updatedAt": 1715073325572,
-      "order": null
+      "createdAt": 1744525363575,
+      "updatedAt": 1744622822254,
+      "order": 1,
+      "icon": "bi-capsule",
+      "iconcolor": "#000000"
     },
     {
       "_id": 89264530,
@@ -279,8 +305,9 @@
       "parent": 139967560,
       "type": 95883802,
       "extends": 34338359,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714833250124
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 49137207,
@@ -288,8 +315,9 @@
       "parent": 139967560,
       "type": 95883802,
       "extends": 34338359,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714833256347
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 40485200,
@@ -299,17 +327,18 @@
       "extends": 34338359,
       "datatype": 41936734,
       "pointertype": 33264638,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714470621934
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 725652960,
       "name": "bob",
       "parent": 592185926,
       "type": 84034547,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714470621934,
-      "order": null,
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1,
       "role": "beheerder",
       "sessionid": 946347271
     },
@@ -319,8 +348,11 @@
       "parent": 37880666,
       "type": 95883802,
       "extends": 34338359,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714822000627
+      "createdAt": 1744525363575,
+      "updatedAt": 1744622351894,
+      "order": 1,
+      "icon": "bi-box",
+      "iconcolor": "#000000"
     },
     {
       "_id": 27727808,
@@ -330,8 +362,9 @@
       "extends": 34338359,
       "datatype": 41936734,
       "pointertype": 47261107,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714470621934
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 88292001,
@@ -339,17 +372,18 @@
       "parent": 236162914,
       "type": 47261107,
       "extends": 34338359,
-      "createdAt": 1714470621934,
-      "updatedAt": 1714822130297
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 955455650,
       "name": "right",
       "parent": 37880666,
       "type": 95883802,
-      "createdAt": 1714476817396,
-      "updatedAt": 1714822118626,
-      "order": null,
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1,
       "extends": 34338359
     },
     {
@@ -357,8 +391,8 @@
       "name": "read",
       "parent": 955455650,
       "type": 68130130,
-      "createdAt": 1714476875877,
-      "updatedAt": 1714944267057,
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
       "order": 1,
       "datatype": 88292001,
       "pointertype": null
@@ -368,8 +402,8 @@
       "name": "create",
       "parent": 955455650,
       "type": 68130130,
-      "createdAt": 1714476956506,
-      "updatedAt": 1714944275592,
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
       "order": 2,
       "datatype": 88292001,
       "pointertype": null
@@ -379,8 +413,8 @@
       "name": "update",
       "parent": 955455650,
       "type": 68130130,
-      "createdAt": 1714476958893,
-      "updatedAt": 1714944280763,
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
       "order": 3,
       "datatype": 88292001,
       "pointertype": null
@@ -390,8 +424,8 @@
       "name": "delete",
       "parent": 955455650,
       "type": 68130130,
-      "createdAt": 1714476961005,
-      "updatedAt": 1714944284564,
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
       "order": 4,
       "datatype": 88292001,
       "pointertype": null
@@ -401,8 +435,8 @@
       "name": "user",
       "parent": 955455650,
       "type": 68130130,
-      "createdAt": 1714476968294,
-      "updatedAt": 1714944294135,
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
       "order": 6,
       "datatype": 41936734,
       "pointertype": 84034547,
@@ -413,18 +447,18 @@
       "name": "json",
       "parent": 236162914,
       "type": 47261107,
-      "createdAt": 1714677999649,
-      "updatedAt": 1714822126955,
-      "order": null
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1
     },
     {
       "_id": 168902690,
       "name": "changeHistory",
       "parent": 34338359,
       "type": 68130130,
-      "createdAt": 1714682090346,
-      "updatedAt": 1714688932780,
-      "order": null,
+      "createdAt": 1744525363575,
+      "updatedAt": 1744525363575,
+      "order": 1,
       "datatype": 860782266,
       "pointertype": null,
       "changeHistory": {
@@ -440,9 +474,9 @@
       "name": "best friend",
       "parent": 35434766,
       "type": 68130130,
-      "createdAt": 1714691632096,
-      "updatedAt": 1714822686972,
-      "order": null,
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1,
       "datatype": 41936734,
       "pointertype": 35434766,
       "tree": 271613970
@@ -452,9 +486,9 @@
       "name": "andre",
       "parent": 271613970,
       "type": 35434766,
-      "createdAt": 1714692427113,
-      "updatedAt": 1714822650744,
-      "order": null,
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1,
       "best friend": 986150725
     },
     {
@@ -462,9 +496,9 @@
       "name": "age",
       "parent": 35434766,
       "type": 68130130,
-      "createdAt": 1714715869861,
-      "updatedAt": 1714715919228,
-      "order": null,
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1,
       "datatype": 27080254,
       "pointertype": null
     },
@@ -473,19 +507,21 @@
       "name": "proxy",
       "parent": 37880666,
       "type": 95883802,
-      "createdAt": 1714814880910,
-      "updatedAt": 1714822379610,
-      "order": null,
-      "extends": 34338359
+      "createdAt": 1744525363576,
+      "updatedAt": 1744622931680,
+      "order": 1,
+      "extends": 34338359,
+      "icon": "bi-asterisk",
+      "iconcolor": "#000000"
     },
     {
       "_id": 158398381,
       "name": "ref",
       "parent": 181100794,
       "type": 68130130,
-      "createdAt": 1714814906918,
-      "updatedAt": 1714814985528,
-      "order": null,
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1,
       "datatype": 41936734,
       "pointertype": 34338359
     },
@@ -494,26 +530,26 @@
       "name": "objdefs",
       "parent": 98569176,
       "type": 34338359,
-      "createdAt": 1714815010753,
-      "updatedAt": 1714815029081,
-      "order": null
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1
     },
     {
       "_id": 236162914,
       "name": "datatypes",
       "parent": 98569176,
       "type": 34338359,
-      "createdAt": 1714815012934,
-      "updatedAt": 1714815036159,
-      "order": null
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1
     },
     {
       "_id": 746591798,
       "name": "role",
       "parent": 955455650,
       "type": 68130130,
-      "createdAt": 1714821028661,
-      "updatedAt": 1714944298412,
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
       "order": 7,
       "datatype": 41936734,
       "pointertype": 171648616,
@@ -524,18 +560,18 @@
       "name": "roles",
       "parent": 98569176,
       "type": 34338359,
-      "createdAt": 1714821074995,
-      "updatedAt": 1714821086211,
-      "order": null
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1
     },
     {
       "_id": 171648616,
       "name": "role",
       "parent": 37880666,
       "type": 95883802,
-      "createdAt": 1714821206599,
-      "updatedAt": 1714822026530,
-      "order": null,
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1,
       "extends": 34338359
     },
     {
@@ -543,9 +579,9 @@
       "name": "tree",
       "parent": 41936734,
       "type": 68130130,
-      "createdAt": 1714821710362,
-      "updatedAt": 1714821874281,
-      "order": null,
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1,
       "pointertype": 34338359,
       "datatype": 41936734,
       "tree": 98569176
@@ -555,36 +591,38 @@
       "name": "people",
       "parent": 1490886,
       "type": 34338359,
-      "createdAt": 1714822619895,
-      "updatedAt": 1714822639139,
-      "order": null
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1
     },
     {
       "_id": 813451754,
       "name": "sjaak",
       "parent": 271613970,
-      "type": 34338359,
-      "createdAt": 1714822660071,
-      "updatedAt": 1714822668940,
-      "order": null
+      "type": 35434766,
+      "createdAt": 1744525363576,
+      "updatedAt": 1744540967882,
+      "order": 2,
+      "file": "1744534414659.ino",
+      "somefile": null
     },
     {
       "_id": 474901666,
       "name": "other peeps",
       "parent": 1490886,
       "type": 34338359,
-      "createdAt": 1714822937502,
-      "updatedAt": 1714822947866,
-      "order": null
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1
     },
     {
       "_id": 37600949,
       "name": "kor",
       "parent": 474901666,
       "type": 35434766,
-      "createdAt": 1714822949574,
-      "updatedAt": 1714833326695,
-      "order": null,
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1,
       "age": null,
       "best friend": 813451754
     },
@@ -593,18 +631,18 @@
       "name": "oldo",
       "parent": 592185926,
       "type": 34338359,
-      "createdAt": 1714823996765,
-      "updatedAt": 1714824045018,
-      "order": null
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1
     },
     {
       "_id": 956842444,
       "name": "adminrights",
       "parent": 98569176,
       "type": 955455650,
-      "createdAt": 1714829710081,
-      "updatedAt": 1715074992711,
-      "order": null,
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1,
       "create": true,
       "delete": true,
       "read": true,
@@ -619,18 +657,18 @@
       "name": "objdefs",
       "parent": 8765087,
       "type": 34338359,
-      "createdAt": 1714833208710,
-      "updatedAt": 1714833208710,
-      "order": null
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1
     },
     {
       "_id": 53866542,
       "name": "adminrights",
       "parent": 8765087,
       "type": 955455650,
-      "createdAt": 1714893698147,
-      "updatedAt": 1715076883897,
-      "order": null,
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1,
       "create": true,
       "delete": true,
       "read": true,
@@ -644,9 +682,9 @@
       "name": "adminrights",
       "parent": 1490886,
       "type": 955455650,
-      "createdAt": 1714894234071,
-      "updatedAt": 1715075176162,
-      "order": null,
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1,
       "create": true,
       "delete": true,
       "read": true,
@@ -661,9 +699,9 @@
       "name": "beheerderrights",
       "parent": 1490886,
       "type": 955455650,
-      "createdAt": 1714894264265,
-      "updatedAt": 1714894264265,
-      "order": null,
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1,
       "create": true,
       "delete": true,
       "read": true,
@@ -676,8 +714,8 @@
       "name": "excludeself",
       "parent": 955455650,
       "type": 68130130,
-      "createdAt": 1714939858536,
-      "updatedAt": 1715019620047,
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
       "order": 5,
       "datatype": 88292001
     },
@@ -686,26 +724,104 @@
       "name": "admin",
       "parent": 375177495,
       "type": 171648616,
-      "createdAt": 1715034503347,
-      "updatedAt": 1715073476766,
-      "order": null
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1
     },
     {
       "_id": 558707662,
       "name": "beheerder",
       "parent": 375177495,
       "type": 171648616,
-      "createdAt": 1715034505395,
-      "updatedAt": 1715073479439,
-      "order": null
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1
     },
     {
       "_id": 901125646,
       "name": "editor",
       "parent": 375177495,
       "type": 171648616,
-      "createdAt": 1715034506913,
-      "updatedAt": 1715073481663,
-      "order": null
+      "createdAt": 1744525363576,
+      "updatedAt": 1744525363576,
+      "order": 1
+    },
+    {
+      "_id": 675470185,
+      "name": "file",
+      "parent": 236162914,
+      "type": 47261107,
+      "order": 1,
+      "createdAt": 1744525471009,
+      "updatedAt": 1744525491113
+    },
+    {
+      "_id": 133701888,
+      "name": "somefile",
+      "parent": 35434766,
+      "type": 68130130,
+      "order": 1,
+      "createdAt": 1744525516632,
+      "updatedAt": 1744525609994,
+      "datatype": 675470185
+    },
+    {
+      "_id": 414164849,
+      "name": "array",
+      "parent": 236162914,
+      "type": 47261107,
+      "order": 1,
+      "createdAt": 1744541975211,
+      "updatedAt": 1744542112115,
+      "datatype": null
+    },
+    {
+      "_id": 351208739,
+      "name": "somearray",
+      "parent": 35434766,
+      "type": 68130130,
+      "order": 1,
+      "createdAt": 1744542083834,
+      "updatedAt": 1744542146451,
+      "datatype": 414164849
+    },
+    {
+      "_id": 310754357,
+      "name": "icon",
+      "parent": 95883802,
+      "type": 68130130,
+      "order": 1,
+      "createdAt": 1744542227698,
+      "updatedAt": 1744542246123,
+      "datatype": 75908361
+    },
+    {
+      "_id": 238311191,
+      "name": "iconcolor",
+      "parent": 95883802,
+      "type": 68130130,
+      "order": 1,
+      "createdAt": 1744542253962,
+      "updatedAt": 1744542339716,
+      "datatype": 821407392
+    },
+    {
+      "_id": 821407392,
+      "name": "color",
+      "parent": 236162914,
+      "type": 47261107,
+      "order": 1,
+      "createdAt": 1744542308041,
+      "updatedAt": 1744542324483
+    },
+    {
+      "_id": 413918876,
+      "name": "sjaak",
+      "parent": 271613970,
+      "type": 181100794,
+      "ref": 813451754,
+      "order": 1,
+      "createdAt": 1744622945558,
+      "updatedAt": 1744622945558
     }
   ]

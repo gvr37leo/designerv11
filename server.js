@@ -1,15 +1,31 @@
 
 let mongodb = require('mongodb')
+var fs = require('fs')
+const multer  = require('multer')
+// const upload = multer({ dest: 'uploads/' })
 let bodyParser = require("body-parser")
 let path = require("path")
 var express = require('express')
 var app = express()
 
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      // Specify the folder where the file will be saved
+      cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+      // Specify the file name format (we use original filename)
+      cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
+const upload = multer({ storage: storage });
+
+// app.use(express.raw({ type: 'image/*', limit: '10mb' }));
 app.use(bodyParser.json());//for json encoded http body's
 app.use(bodyParser.urlencoded({ extended: false }));//for route parameters
 app.use(express.static('./'))
 
-let url = 'mongodb+srv://paul:$RF5tg^YH@designerv10.bai64.mongodb.net/testdb?retryWrites=true&w=majority';
+let url = 'mongodb://localhost:27017';
 // https://cloud.mongodb.com/v2/5f63b72f634422449781b510#/metrics/replicaSet/661f9cbfaae012631f280233/explorer/testdb/firstcollection/find
 let databasename = 'testdb'
 let port = 8000
@@ -20,7 +36,7 @@ app.listen(port, () => {
 start()
 
 async function start(){
-    const client = new mongodb.MongoClient(url);//{useNewUrlParser: true, useUnifiedTopology: true}
+    const client = new mongodb.MongoClient(url);
     let sessionmap = {}
 
     try {
@@ -28,10 +44,24 @@ async function start(){
         console.log('connected to mongo');
         let db = client.db(databasename)
         let collection = db.collection('firstcollection')
+        let filecollection = db.collection('firstcollection')
 
         async function getUserWithSessionId(sessionid){
             return await collection.findOne({sessionid:sessionid})
         }
+
+        app.post('/api/upload',upload.single('file'),async (req,res) => {
+            res.send(req.file)
+        })
+
+        app.get('/api/download/:filename',(req,res) => {
+            res.sendFile(path.resolve(__dirname, `./uploads/${req.params.filename}`))
+        })
+
+        app.delete('/api/deletefile/:filename',(req,res) => {
+            fs.unlinkSync(path.resolve(__dirname, `./uploads/${req.params.filename}`))
+            res.send({message:"deleted"})
+        })
 
         app.post('/api/login',async (req,res) => {
             
@@ -69,8 +99,8 @@ async function start(){
         async function getdescendants(id){
             let children = await getchildren(id)
             for(var child of children){
-                let asdjk = await getdescendants(child._id)
-                children.push(...asdjk)
+                let descs = await getdescendants(child._id)
+                children.push(...descs)
             }
 
             return children
@@ -104,7 +134,7 @@ async function start(){
         }
 
         async function authorization(id,req,crudop){
-            // return true
+            return true
             var sessionid = parseInt(req.get('sessionid'))
             var sessionuser = await getUserWithSessionId(sessionid)
             // let roles = await getUserRoles(sessionuser._id)
@@ -220,7 +250,7 @@ async function start(){
 
             var result2 = await collection.deleteMany({_id:{$in:descendants.map(d => d._id)}})
             var result = await collection.findOneAndDelete({_id:req.body._id})
-            res.send(result)
+            res.send({message:"success",result,result2})
         })
 
         app.get('/*', function(req, res, next) {

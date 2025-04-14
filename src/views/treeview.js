@@ -17,7 +17,7 @@ class Treeview{
         roots.sort((a,b) => a.order - b.order)
 
     
-        cr('div')
+        cr('div',{style:'background:white; border-radius:3px; margin-left: 10px; padding:5px;'})
             for(var item of roots){
                 let treennode2 = new Treenode(item,this.collapsemap,this.treemap)
                 this.treemap[item._id] = treennode2
@@ -40,17 +40,22 @@ class Treenode{
     collapsemap
     item
     treemap
+    iconright = '<i class="bi bi-arrow-right-square" ></i>'
+    icondown = '<i class="bi bi-arrow-down-right-square"></i>'
 
     constructor(item,collapsemap,treemap){
         this.item = item
         this.collapsemap = collapsemap
         this.treemap = treemap
+
+        
     }
 
+    
     open(){
         let children = getchildren(this.item._id)
         if(children.length > 0){
-            this.arrowspan.innerHTML = '▼'
+            this.arrowspan.innerHTML = this.icondown
         }
         this.childrencontainer.style.display = 'block'
         this.collapsemap[this.item._id] = 'open'
@@ -62,7 +67,7 @@ class Treenode{
     collapse(){
         let children = getchildren(this.item._id)
         if(children.length > 0){
-            this.arrowspan.innerHTML = '▶'
+            this.arrowspan.innerHTML = this.iconright
         }
         this.childrencontainer.style.display = 'none'
         this.collapsemap[this.item._id] = 'collapsed'
@@ -70,7 +75,7 @@ class Treenode{
     }
 
     toggle(){
-        if(this.arrowspan.innerHTML == '▶'){
+        if(this.childrencontainer.style.display == 'none'){
             this.open()
         }else{
             this.collapse()
@@ -85,12 +90,13 @@ class Treenode{
         cr('div')
             cr('div',{style:'display:flex; height:21px;'})
                 //kan dit op een sjiekere manier?
-
-                this.arrowspan = crend('span','',{style:'display:inline-block;width:16px; height:16px;'})
+                // <i class="bi bi-car-front-fill"></i>
+                this.arrowspan = crend('span','',{style:'display:inline-block; width:16px; height:16px;'})
                 this.arrowspan.on('click',() => {
                     this.toggle()
                 })
-                
+                var {icon,iconcolor} = deref(item.type)
+                crend('i','',{class:`bi ${icon}`,style:`color:${iconcolor};width:16px; height:16px; margin:0px 5px;`})
                 
                 var active = item._id == current._id
                 if(item.type == namemap['proxy']._id){
@@ -151,8 +157,21 @@ class Treenode{
                         })
                     },
                     () => {
+                        crend('button','create proxy').on('click',async () => {
+                            // var text = await navigator.clipboard.readText()
+                            await createOne({
+                                _id:null,
+                                name:item.name,
+                                parent:item.parent,
+                                type:objdefmap['proxy']._id,
+                                ref:item._id
+                            })
+                            await refreshrerender()
+                        })
+                    },
+                    () => {
                         //list of buttons
-                        //look at node's type, look at the objef, look at the pointer objdefs below
+                        //look at node's type, look at the objdef, look at the pointer objdefs below
                         //these are the allowed types
                         //foreach create a button that quickly generates an item with this type
                         let objef = deref(item.type)

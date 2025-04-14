@@ -131,7 +131,7 @@ class ListView{
                 if(datatype.name == 'json'){
                     continue
                 }
-                cr('th')
+                cr('th',{style:""})
                     text(attribute.name)
 
                     let orderselect = cr('select',{})

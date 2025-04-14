@@ -54,7 +54,7 @@ class DetailView{
     }
 
     render(){
-        cr('div')
+        cr('div', {style:'background:white; border-radius:3px; padding:5px;'})
             cr('div')
     
                 crend('button','update',{class:'btn btn-primary'}).on('click',async () => {
@@ -80,6 +80,7 @@ class DetailView{
                     let value = this.entity[attribute.name]
                     cr('div')
                         crend('div',attribute.name,{style:'font-weight:bold;'})
+                            
                         if(datatype.name == 'id'){
                             crend('div',value)
                             valueretrievers.push(() => {
@@ -154,16 +155,74 @@ class DetailView{
                                 }
                                 
                             })
+                        }else if(datatype.name == 'file'){
+                            cr('div')
+                                let filenameinput = crend('input','',{value:value})
+                                let uploadinput = crend('input','',{type:'file'}).on('click',() => {
+
+                                })
+                                let uploadbtn = crend('button','upload',{}).on('click', () => {
+                                    var formdata = new FormData()
+                                    formdata.append("file",uploadinput.files[0])
+                                    fetch('/api/upload',{
+                                        method:"POST",
+                                        headers:{},
+                                        body:formdata,
+                                    }).then(res => res.json())
+                                    .then(async data => {
+                                        filenameinput.value = data.filename
+                                        await update({
+                                            _id:this.entity._id,
+                                            [attribute.name]:data.filename,
+                                        })
+                                        refreshrerender()
+                                        
+                                    })
+                                })
+                                
+                                crend('a','download',{download:value,href:`/api/download/${value}`})
+                                // let downloadbtn = crend('button','download',{}).on('click',() => {
+                                    
+                                // })
+                                let deletefile = crend('button','delete',{}).on('click',() => {
+                                    fetch(`/api/deletefile/${value}`,{
+                                        method:"DELETE",
+                                        headers:{},
+                                    }).then(res => res.json())
+                                    .then(async data => {
+                                        filenameinput.value = null
+                                        await update({
+                                            _id:this.entity._id,
+                                            [attribute.name]:null,
+                                        })
+                                        refreshrerender()
+                                        
+                                    })
+                                })
+
+                            end()
+                            valueretrievers.push(() => {
+                                return [attribute.name,filenameinput.value]
+                            })
+                        }else if(datatype.name == 'array'){
+
+                        }else if(datatype.name == 'color'){
+                            let input = crend('input','',{type:'color'})
+                            input.value = value
+                            valueretrievers.push(() => {
+                                return [attribute.name,input.value]
+                            })
                         }
                     end()
                 }
                 crend('br')
-                let textarea = crend('textarea',JSON.stringify(this.entity,null,2),{style:'width:250px;height:200px;',class:'form-control'})
+                let textarea = crend('textarea',JSON.stringify(this.entity,null,2),{rows:10,class:'form-control'})
                 crend('br')
                 crend('button','update textarea',{class:'btn btn-primary'}).on('click',async () => {
                     let data = JSON.parse(textarea.value)
                     await update(data)
                 })
+                
             end()
         end()
         // listview
@@ -185,7 +244,7 @@ class DetailView{
             })
         }
         let names = attributes.map(a => a.name)
-        cr('div')
+        cr('div',{style:'background:white; border-radius:3px; padding:5px;'})
             cr('div',{style:'display:flex;gap:10px;'})
                 for(let name of names){
                     crend('button',name,{class:'btn btn-primary'}).on('click',async () => {
@@ -224,10 +283,19 @@ function deref(id){
 
 function getchildren(id){
     if(groupparent[id]){
-        return groupparent[id]
+        return groupparent[id].slice()
     }else{
         return []
     }
+}
+
+function getDescendants(id){
+    let children = getchildren(id)
+    for(var child of children){
+        let descs = getDescendants(child._id)
+        children.push(...descs)
+    }
+    return children
 }
 
 function getancestorpath(id){

@@ -31,6 +31,9 @@ class Router{
 
     locationListen(){
         navigation.addEventListener('navigate',(event) => {
+            if(event.destination.url.includes('/api/download')){
+                return
+            }
             event.intercept()
             this.trigger(event.destination.url)
         })

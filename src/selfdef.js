@@ -180,7 +180,7 @@ function generateSelfdef(){
 
         selfdefobjects.push(new Datatype({
             parent:'metametaroot',
-            name:'pointer',
+            name:'proxy',
             extends:'entity',
         }))
 
