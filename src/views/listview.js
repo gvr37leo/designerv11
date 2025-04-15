@@ -12,9 +12,11 @@ class ListView{
     opmap = {}
     sortmap = {}
     anchor
+    filterset
 
     async load(filter,sort){
         this.data = await query(filter,sort)
+        this.filterset = {filter,sort}
     }
 
     async reload(){
@@ -31,9 +33,13 @@ class ListView{
             }
             if(filter.filter[attribute.name] != undefined){
                 //op and val should be key and value
-                for(var key in filter.filter[attribute.name]){
-                    this.opmap[attribute.name].value = key;
-                    this.filtermap[attribute.name].value = filter.filter[attribute.name][key];
+                // parent : {eq: 35434766}
+                for(var key in filter.filter){
+                    var value = filter.filter[key]
+                    var op = Object.keys(value)[0]
+                    var filterval = value[op]
+                    this.opmap[attribute.name].value = op;
+                    this.filtermap[attribute.name].value = filterval;
                 }
             }
 
@@ -111,13 +117,14 @@ class ListView{
 
         cr('table',{style:'white-space:nowrap;'})
             //should create 2 containers to render into
-            this.headcontainer = cr('div')
+            this.headcontainer = cr('thead')
                 this.renderhead()
             end()
-            this.bodycontainer = cr('div')
+            this.bodycontainer = cr('tbody')
                 this.renderbody()
             end()
         end()
+        this.importfilter(this.filterset)
     }
 
 

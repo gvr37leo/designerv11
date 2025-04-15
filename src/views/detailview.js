@@ -17,7 +17,7 @@ class DetailView{
 
     async load(id){
         this.listview.metaAttributes = getchildren(namemap['entity']._id)
-        await this.listview.load({parent:id},{updatedAt:-1})
+        await this.listview.load({parent:{"$eq":id}},{updatedAt:-1})
         this.entity = deref(id)
 
         
@@ -158,6 +158,7 @@ class DetailView{
                         }else if(datatype.name == 'file'){
                             cr('div')
                                 let filenameinput = crend('input','',{value:value})
+                                crend('img','',{src:`/api/download/${value}`})
                                 let uploadinput = crend('input','',{type:'file'}).on('click',() => {
 
                                 })
@@ -181,10 +182,8 @@ class DetailView{
                                 })
                                 
                                 crend('a','download',{download:value,href:`/api/download/${value}`})
-                                // let downloadbtn = crend('button','download',{}).on('click',() => {
-                                    
-                                // })
-                                let deletefile = crend('button','delete',{}).on('click',() => {
+                                
+                                crend('button','delete',{}).on('click',() => {
                                     fetch(`/api/deletefile/${value}`,{
                                         method:"DELETE",
                                         headers:{},
@@ -245,20 +244,21 @@ class DetailView{
         }
         let names = attributes.map(a => a.name)
         cr('div',{style:'background:white; border-radius:3px; padding:5px;'})
-            cr('div',{style:'display:flex;gap:10px;'})
-                for(let name of names){
-                    crend('button',name,{class:'btn btn-primary'}).on('click',async () => {
-                        let query = {[name]:this.entity._id}
-                        listviewcontainer.innerHTML = ''
-                        await this.listview.load(query,{updatedAt:-1})
-                        startContext(listviewcontainer)
-                        this.listview.render()
-                        endContext()
-                    })
-                }
-            end()
+            // cr('div',{style:'display:flex;gap:10px;'})
+            //     for(let name of names){
+            //         crend('button',name,{class:'btn btn-primary'}).on('click',async () => {
+            //             let query = {[name]:this.entity._id}
+            //             listviewcontainer.innerHTML = ''
+            //             await this.listview.load(query,{updatedAt:-1})
+            //             startContext(listviewcontainer)
+            //             this.listview.render()
+            //             endContext()
+            //         })
+            //     }
+            // end()
             let listviewcontainer = cr('div')
                 this.listview.render()
+                
                 // listview({parent:entity._id},{updatedAt:'desc'})
             end()
         end()

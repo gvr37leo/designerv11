@@ -1,14 +1,14 @@
 
 //todo
-//image type
-//give objdefs an icon to show in the treeview
+//allowed subtypes/embedded array
+//users and authorization 
+
 //avadent case study
 //clone tree
 //roles in containers zodat je de extra functionaliteit krijgt van admins/beheerders
 //UI/toasts for denied permissions
 //rich text
 //find/cleanup orphans
-//list type/attribute?
 
 cr('div',{style:'display:flex; justify-content:space-between; background:white; padding:10px;'})
     cr('div',{style:'display:flex; align-items:flex-start; gap:10px;'})
@@ -131,9 +131,9 @@ refresh().then(() => {
         appcontainer.innerHTML = ''
         let containter = cr('div',{style:'display:flex; align-items:flex-start;'})
             treeview.render()
-            
+            let listviewcontainer = crend('div','',{style:"background:white; margin:0px 10px; padding:5px;border-radius:3px;"})
             await listview.load({},{})
-            startContext(containter)
+            startContext(listviewcontainer)
                 listview.metaAttributes = getchildren(objdefmap['entity']._id)
                 listview.render()
             endContext()

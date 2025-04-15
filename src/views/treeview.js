@@ -224,48 +224,26 @@ function treenode(item){
 
 function dropdownMenu(cbs){
     // https://getbootstrap.com/docs/5.3/components/dropdowns/#overview
-
-
-    cr('div',{class:'dropdown hover'})
-        crend('button','...',{class:'btn btn-primary dropdown-toggle',type:'button',"data-bs-toggle":'dropdown'})
-        cr('ul',{class:'dropdown-menu'})
-            for(var cb of cbs){
-                cr('li')
-                    cr('a',{class:'dropdown-item'})
+    cr('div',{style:'margin-left:5px;'})
+        crend('button','...',{class:"hover"}).on('click',() => {
+            toggle(dropcontent)
+        })
+        let dropcontent = cr('div',{class:'dropdown-content',style:"display:none;"})
+            cr('div',{style:"background:white; display:flex; gap:10px; flex-direction:column; position:absolute;z-index:3; padding:10px; border:1px solid black; border-radius:5px;"})
+                for(var cb of cbs){
+                    cr('span',{class:''})
                         cb()
                     end()
-                end()
-            }
+                }
+            end()
         end()
     end()
-
-    // <div class="dropdown">
-    //     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    //         Dropdown button
-    //     </button>
-    //     <ul class="dropdown-menu">
-    //         <li><a class="dropdown-item" href="#">Action</a></li>
-    //         <li><a class="dropdown-item" href="#">Another action</a></li>
-    //         <li><a class="dropdown-item" href="#">Something else here</a></li>
-    //     </ul>
-    // </div>
 }
 
-// function dropdownMenu(cbs){
-//     // https://getbootstrap.com/docs/5.3/components/dropdowns/#overview
-
-//     cr('span',{style:'position:relative;',class:'hover'})
-//         crend('button','...',{style:''}).on('click',() => {
-//             if(container.style.display == 'none'){
-//                 container.style.display = 'flex'
-//             }else{
-//                 container.style.display = 'none'
-//             }
-//         })
-//         let container = cr('div',{style:'display:none; position:absolute; z-index:1; flex-direction:column;left:0px;'})
-//             for(let cb of cbs){
-//                 cb()
-//             }
-//         end()
-//     end()
-// }
+function toggle(element){
+    if(element.style.display == 'none'){
+        element.style.display = 'block'
+    }else{
+        element.style.display = 'none'
+    }
+}
