@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, cb) => {
       // Specify the file name format (we use original filename)
-      cb(null, Date.now() + path.extname(file.originalname));
+      cb(null, Math.floor(Math.random() * 1000000000).toString()+ path.extname(file.originalname));      
     }
 });
 const upload = multer({ storage: storage });
@@ -59,7 +59,14 @@ async function start(){
         })
 
         app.delete('/api/deletefile/:filename',(req,res) => {
-            fs.unlinkSync(path.resolve(__dirname, `./uploads/${req.params.filename}`))
+            const uploadsDir = path.resolve(__dirname, 'uploads');
+            const filePath = path.resolve(__dirname, 'uploads', req.params.filename);
+            if (!filePath.startsWith(uploadsDir + path.sep) && filePath !== uploadsDir) {
+                res.status(400).send({error: "Invalid file path"})
+                return
+            }
+            
+            fs.unlinkSync(filePath)
             res.send({message:"deleted"})
         })
 
@@ -68,7 +75,7 @@ async function start(){
             // get users
             // check if user exists
 
-            var usertype = await collection.findOne({name:'backenduser'})
+            var usertype = await collection.findOne({name:'user'})
             var user = await collection.findOne({type:usertype._id,name:req.body.username})
             if(user == null){
                 res.status(404).send()
@@ -140,6 +147,14 @@ async function start(){
             // let roles = await getUserRoles(sessionuser._id)
             // do something with the parentnode to check for crud rights
             
+            //get all rights that have this user or this users role
+            //get the parents of those rights
+            //check if that parent is in this node's ancestor path
+            //if so allow
+
+            //maybe add a setting to turn off and on authorization
+
+
             if(sessionuser == null){
                 return false
             }
@@ -176,6 +191,29 @@ async function start(){
             //if none encountered -> deny
 
         }
+
+        app.post('/api/touch',async function(req,res){
+            var segments = req.body.path.split('/')
+            var current = null
+            for(var segment of segments){
+                var found = await collection.findOne({
+                    name:segment,
+                    parent:current?._id
+                })
+                if(found == null){
+                    var result = await collection.insertOne({
+                        _id:Math.floor(Math.random() * 1000000000),
+                        name:segment,
+                        createdAt:Date.now(),
+                        updatedAt:Date.now(),
+                    })
+                    current = result
+                }else{
+                    current = found
+                }
+            }
+            res.send(current)
+        })
 
         app.post('/api/create',async function(req, res){
             let authresult = await authorization(req.body[0].parent,req,'create')
@@ -227,11 +265,12 @@ async function start(){
                 res.status(403).send()
                 return
             }
-            
+            //todo updating the parent field should have extra strict authorization checking because you could move nodes to where you don't have authority
+
             var current = await collection.findOne({_id:req.body._id})
             if(req.body.updatedAt && (req.body.updatedAt != current.updatedAt)){
                 
-                res.status(500).send({})
+                res.status(500).send({error:'a newer version already exists on the server'})
                 return 'error'
             }
 
@@ -263,4 +302,10 @@ async function start(){
             start()
         }, 5000);
     }
+}
+
+async function scanUploads(){
+    //scan the uploads folder and check if there are any files that dont have an entity referencing them in the database
+    //if not create a fileobjdef entity for them
+    //every file should have a fileobjdef entity in the database under the files entity
 }

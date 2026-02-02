@@ -1,79 +1,56 @@
 
 //todo
-//allowed subtypes/embedded array
 //users and authorization 
 
-//avadent case study
-//clone tree
 //roles in containers zodat je de extra functionaliteit krijgt van admins/beheerders
 //UI/toasts for denied permissions
 //rich text
 //find/cleanup orphans
 
-cr('div',{style:'display:flex; justify-content:space-between; background:white; padding:10px;'})
-    cr('div',{style:'display:flex; align-items:flex-start; gap:10px;'})
-        crend('button','get',{class:'btn btn-primary'}).on('click',async () => {
-            var data = await query({},{})
-            console.log(data)
-        })
+//container met bepaald type toestaan onder objdef? generic typing
+// generic for containers and or for pointers
 
-        crend('button','init',{class:'btn btn-primary'}).on('click',async () => {
-            var data = generateSelfdef()
-            await createMany(data)
-            console.log('created')
-        })
+//top prios
+//login, authentication, sessions
+//filestorage
+//flushing out the supra data structure
 
-        crend('button','delete',{class:'btn btn-primary'}).on('click',async () => {
-            var res = await remove({})
-            console.log(res)
-        })
 
-        var mytextarea = crend('textarea','',{})
 
-        crend('button','export',{class:'btn btn-primary'}).on('click',async () => {
-            var res = await query({})
-            mytextarea.value = JSON.stringify(res,null,2)
-        })
+//maybe cache the meta trees but not the main data tree
+//sessions?
+//maybe leave login and authorization for later
+//not necessary at the start
+//focus on filestorage
+//maybe replace icons with emojis https://emojicopy.com/    https://www.freecodecamp.org/news/all-emojis-emoji-list-for-copy-and-paste/    https://unicode.org/emoji/charts/full-emoji-list.html
+//instead of deleting objects move them to the archive first,save the original parent in case you want to recover it
+//save a phase on objects, design->exists->archived
 
-        crend('button','import',{class:'btn btn-primary'}).on('click',async () => {
-            var data = JSON.parse(mytextarea.value) 
-            var res = await createMany(data)
-        })
-    end()
+//listview for each type
+//listview for back refs
 
-    cr('div',{style:'display:flex;align-items:flex-start;gap:10px;'})
-        crend('button','delete orphans',{}).on('click',() => {
-            var allset = new Set(entities.map(e => e._id))
-            
-            
-            var roots = entities.filter(e => e.parent == null)
-            var ids = []
-            //weird bug where ids list is really long and keeps growing after every call
-            for(var root of roots){
-                ids.push(root,...getDescendants(root._id).map(e => e._id))
-            }
-            var crawledset = new Set(ids)
+//for long lists, dont show them in the tree, only show the table view, select item there, only show selected item in the tree path and maybe ... for the others, or chrome style arrayview
+//make a function that scans the uploads folder and checks if they all have a referencing entity, if not create an entity
 
-            var orphanset = allset.difference(crawledset)
-            var orphanids = Array.from(orphanset)
-            // remove({_id:orphanids})
-        })
-        let sessioniddiv = crend('div','',{style:'white-space:nowrap;'})
-        var usernameinput = crend('input')
-        crend('button','login',{class:'btn btn-primary'}).on('click',async () => {
-            var res = await fetch('/api/login',{
-                method:'POST',
-                headers:{
-                    'Content-Type': 'application/json'
-                },
-                body:JSON.stringify({username:usernameinput.value})
-            }).then(res => res.json())
-            localStorage.setItem('sessionid',res.sessionid)
-            console.log(res)
-        })
-    end()
-end()
-crend('br')
+
+
+
+
+function logout(){
+    localStorage.removeItem('currentuserid')
+}
+
+function isLoggedIn(){
+    return localStorage.getItem('currentuserid') != null
+}
+
+function getcurrentuser(){
+    return idmap[parseInt(localStorage.getItem('currentuserid'))] 
+}
+
+function getcurrentRole(){
+    return deref(getcurrentuser()?.role)?.name
+}
 
 var router = new Router()
 var entities = []
@@ -83,7 +60,9 @@ var groupparent = {}
 var typegroups = {}
 var objdefmap = {}
 var current = {}
-var appcontainer = crend('div',{})
+var header = document.querySelector('#header')
+var appcontainer = document.querySelector('#appcontainer')
+var dialogel = crend('dialog','',{closedby:"any"})
 var detailview = new DetailView()
 var listview = new ListView();
 var treeview = new Treeview();
@@ -96,7 +75,7 @@ async function refresh(){
 
     idmap = mapify(entities,'_id')
     namemap = mapify(entities,'name')
-    groupparent = groupby(entities,'parent')//quicky find your children
+    groupparent = groupby(entities,'parent')//quickly find your children
     typegroups = groupby(entities,'type')
     objdefmap = mapify(search(entities,{type:namemap['objdef']._id}),'name')
     
@@ -104,12 +83,17 @@ async function refresh(){
 
 async function refreshrerender(){
     await refresh()
+    drawHeader()
     router.trigger(window.location.pathname)
 }
 
+
 refresh().then(() => {
-    // var loggedinuser = search(entities,{sessionid:getSessionId()})[0]
-    // sessioniddiv.innerText = `current sessionid ${getSessionId()} : ${loggedinuser.name} : ${loggedinuser.role}`
+    drawHeader()
+    router.listen(/home/,async (match) => {
+        appcontainer.innerHTML = ''
+        homepage()
+    })
 
     router.listen(/detail\/(?<id>.*)/,async (match) => {
         startContext(appcontainer)
@@ -121,6 +105,23 @@ refresh().then(() => {
             await detailview.load(parseInt(match.groups.id))
             startContext(containter)
                 detailview.render()
+            endContext()
+        end()
+        endContext()
+    })
+
+    router.listen(/listview\/(?<id>.*)/,async (match) => {
+        current = idmap[match.groups.id]
+        var objdef = current
+        var attributes = getAttributes(objdef._id)
+        startContext(appcontainer)
+        appcontainer.innerHTML = ''
+        let containter = cr('div',{style:'display:flex; align-items:flex-start;'})
+            let listviewcontainer = crend('div','',{style:"background:white; margin:0px 10px; padding:5px;border-radius:3px;"})
+            listview.metaAttributes = attributes
+            await listview.load({"type":{"$eq":objdef._id}},{updatedAt:-1})
+            startContext(listviewcontainer)
+                listview.render()
             endContext()
         end()
         endContext()
@@ -146,3 +147,28 @@ refresh().then(() => {
     router.trigger(window.location.pathname)
 })
 
+
+function findbyname(name){
+    return namemap[name]
+}
+
+function testDialog(){
+    openDialog(() => {
+        crend('button','close').on('click',() => {
+            closeDialog()
+        })
+        crend('p','hello there here is some aslkjakj dlaksjd  alksdjlaksdj qlkw el alsd lkqwejlkj  lqwkej askdj ql lqkjwel kqjwl kajdflkasdjlqkjwe la lsdkj  dialog')
+    })
+}
+
+function openDialog(cb){
+    dialogel.showModal()
+    startContext(dialogel)
+    cb()
+    endContext()
+}
+
+function closeDialog(){
+    dialogel.close()
+    dialogel.innerHTML = ''
+}

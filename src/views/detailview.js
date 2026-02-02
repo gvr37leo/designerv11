@@ -1,5 +1,3 @@
-
-
 class DetailView{
 
     entity
@@ -19,15 +17,33 @@ class DetailView{
         this.listview.metaAttributes = getchildren(namemap['entity']._id)
         await this.listview.load({parent:{"$eq":id}},{updatedAt:-1})
         this.entity = deref(id)
+        if(this.entity == null){
+            return
+        }
 
         
         this.objdef = deref(this.entity.type)
 
+        
         if(this.objdef == null){
             this.attributes = []
         }else{
-            this.attributes = getAttributes(this.objdef._id)
 
+            //backref attributes
+            //find all pointer attributes that have a pointertype the same as your type
+            //get the name of that attribute
+            //find all entitys that have your id in that field
+            //also check all proxy's to see if their ref field references you
+            //can be made a lot faster if you make maps of all pointer fields
+            var backrefattributes = entities.filter(e => e.datatype == namemap['pointer']._id && e.pointertype == this.entity.type)
+            this.backrefentities = []
+            for(var backrefattribute of backrefattributes){
+                this.backrefentities.push(...entities.filter(e => e[backrefattribute.name] ==  this.entity._id)) 
+            }
+            
+
+            this.attributes = getAttributes(this.objdef._id)
+            this.attributes.sort((a,b) => a.order - b.order)
             let copylist = []
             for(var attribute of this.attributes){
                 copylist.push(attribute)
@@ -54,18 +70,31 @@ class DetailView{
     }
 
     render(){
-        cr('div', {style:'background:white; border-radius:3px; padding:5px;'})
+        if(this.entity == null){
+            return
+        }
+
+        
+
+        
+
+        cr('div', {style:'background:#c8c8c8; border-radius:3px; padding:5px; min-width:500px;'})
             cr('div')
     
-                crend('button','update',{class:'btn btn-primary'}).on('click',async () => {
+                // Define a function to handle saving logic
+                async function saveObject() {
                     let res = {}
-                    for(let valueretriever of valueretrievers){
+                    for (let valueretriever of valueretrievers){
                         let data = valueretriever()
                         res[data[0]] = data[1]
                     }
                     await update(res)
                     await refreshrerender()
-                })
+                    toastr.success('Saved')
+                }
+
+                // Update the button click handler to use the saveObject function
+                crend('button','Save',{class:'btn btn-primary'}).on('click', saveObject)
             end()
             
     
@@ -80,11 +109,56 @@ class DetailView{
                     let value = this.entity[attribute.name]
                     cr('div')
                         crend('div',attribute.name,{style:'font-weight:bold;'})
-                            
                         if(datatype.name == 'id'){
                             crend('div',value)
                             valueretrievers.push(() => {
                                 return [attribute.name,value]
+                            })
+                        }else if(datatype.name == 'icon'){
+                            cr('div',{style:'display:flex;align-items:center;'})
+                                crend('i','',{class:`iconoir-${this.entity[attribute.name]}`,style:'font-size:32px'})
+                                crend('button','pick icon',{}).on('click',() => {
+                                    openDialog(() => {
+                                        let page = 0
+                                        let filterediconnames = iconnoirnames
+                                        crend('button','prev',{}).on('click',() => {
+                                            page--
+                                            rendericons()
+                                        })
+                                        crend('button','next',{}).on('click',() => {
+                                            page++
+                                            rendericons()
+                                        })
+
+                                        crend('input','',{placeholder:"search icons..."}).on('input',(e) => {
+                                            filterediconnames = iconnoirnames.filter(n => n.includes(e.target.value))
+                                            page = 0
+                                            rendericons()
+                                        })
+                                        var iconscontainer = crend('div','',{id:'iconscontainer',style:"display:flex; flex-wrap:wrap;"})
+                                        rendericons()
+                                        function rendericons(){
+                                            iconscontainer.innerHTML = ''
+                                            startContext(iconscontainer)
+                                            let start = page * 100
+                                            let end2 = start + 100
+                                            for(let icon of filterediconnames.slice(start,end2)){
+                                                cr('span',{style:"border:1px solid black; border-radius:3px; padding:5px; margin:5px; display:flex; align-items:center; cursor:pointer;",}).on('click',() => {
+                                                    iconinput.value = icon
+                                                    closeDialog()
+                                                })
+                                                    crend('i','',{class:`iconoir-${icon}`,style:'font-size:32px'})
+                                                    crend('span',icon)
+                                                end()
+                                            }
+                                            endContext()
+                                        }
+                                    })
+                                })
+                                let iconinput = crend('input','',{value:this.entity[attribute.name]})
+                            end()
+                            valueretrievers.push(() => {
+                                return [attribute.name,iconinput.value]
                             })
                         }else if(datatype.name == 'pointer'){
                             // deref to the name
@@ -98,7 +172,7 @@ class DetailView{
                                     options = search(entities,{type:attribute.pointertype})
                                 }
                                 cr('div',{class:'dropdown'})
-                                    crend('button','select',{'data-bs-toggle':'dropdown',type:'button',class:'btn btn-secondary dropdown-toggle'})
+                                    crend('button','select',{'data-bs-toggle':'dropdown',style:"border-top-right-radius:0px;border-bottom-right-radius:0px;",type:'button',class:'btn btn-secondary dropdown-toggle'})
                                     cr('lu',{class:'dropdown-menu'})
                                         for(let option of options){
                                             cr('li')
@@ -111,7 +185,7 @@ class DetailView{
                                         }
                                     end()
                                 end()
-                                let input = crend('input','',{value:value,class:'form-control'})
+                                let input = crend('input','',{value:value ?? '',class:'form-control',name:attribute.name})
                             end()
 
 
@@ -124,29 +198,29 @@ class DetailView{
                                 return [attribute.name,parseInt(value)]
                             })
                         }else if(datatype.name == 'number'){
-                            let input = crend('input','',{type:'number',value:value,class:'form-control'})
+                            let input = crend('input','',{type:'number',name:attribute.name,value:value,class:'form-control'})
                             valueretrievers.push(() => {
                                 return [attribute.name,input.valueAsNumber]
                             })
                         }else if(datatype.name == 'text'){
-                            let input = crend('input','',{value:value,class:'form-control'})
+                            let input = crend('input','',{value:value,name:attribute.name,class:'form-control'})
                             valueretrievers.push(() => {
                                 return [attribute.name,input.value]
                             })
                         }else if(datatype.name == 'date'){
-                            let input = crend('input','type',{type:'datetime-local',class:'form-control'})
+                            let input = crend('input','type',{type:'datetime-local',name:attribute.name,class:'form-control'})
                             input.valueAsNumber = value
                             valueretrievers.push(() => {
                                 return [attribute.name,input.valueAsNumber]
                             })
                         }else if(datatype.name == 'boolean'){
-                            let input = crend('input','',{type:'checkbox',class:'form-check-input'})
+                            let input = crend('input','',{type:'checkbox',name:attribute.name,class:'form-check-input'})
                             input.checked = value
                             valueretrievers.push(() => {
                                 return [attribute.name,input.checked]
                             })
                         }else if(datatype.name == 'json'){
-                            let input = crend('textarea',JSON.stringify(value,null,2),{class:'form-control'})
+                            let input = crend('textarea',JSON.stringify(value,null,2),{class:'form-control',name:attribute.name})
                             valueretrievers.push(() => {
                                 try {
                                     return [attribute.name,JSON.parse(input.value)]
@@ -157,12 +231,22 @@ class DetailView{
                             })
                         }else if(datatype.name == 'file'){
                             cr('div')
-                                let filenameinput = crend('input','',{value:value})
-                                crend('img','',{src:`/api/download/${value}`})
-                                let uploadinput = crend('input','',{type:'file'}).on('click',() => {
-
-                                })
-                                let uploadbtn = crend('button','upload',{}).on('click', () => {
+                                let filenameinput = crend('input','',{value:value,name:attribute.name,style:"display:block;"})
+                                var fileobject = deref(value)
+                                var filename = fileobject?.name
+                                if(filename){
+                                    if(['png','jpeg','jpg'].some(s => s == last(filename?.split('.')))){
+                                        crend('img','',{src:`/api/download/${fileobject?.nameondisk}`,style:"max-width:300px;max-height:300px;display:block;"})
+                                    }
+                                    cr('div')
+                                        crend('div',filename)
+                                        crend('a','Download',{href:`/api/download/${fileobject?.nameondisk}`,download:true})
+                                    end()
+                                }else{
+                                    crend('div',"file not found")
+                                }
+                                let uploadinput = crend('input','',{type:'file'})
+                                uploadinput.on('change',() => {
                                     var formdata = new FormData()
                                     formdata.append("file",uploadinput.files[0])
                                     fetch('/api/upload',{
@@ -171,59 +255,99 @@ class DetailView{
                                         body:formdata,
                                     }).then(res => res.json())
                                     .then(async data => {
-                                        filenameinput.value = data.filename
+                                        var files = await touch('files')
+                                        var response = await createOne({
+                                            _id:parseInt(data.filename),
+                                            parent:files._id,
+                                            name:data.originalname,
+                                            nameondisk:data.filename,
+                                            mimetype:data.mimetype,
+                                            size:data.size,
+                                            type:(await queryOne({name:"fileobjdef"}))._id
+                                        })
+                                        filenameinput.value = response.insertedIds[0]
                                         await update({
                                             _id:this.entity._id,
-                                            [attribute.name]:data.filename,
+                                            [attribute.name]:response.insertedIds[0],
                                         })
                                         refreshrerender()
                                         
                                     })
                                 })
-                                
-                                crend('a','download',{download:value,href:`/api/download/${value}`})
-                                
-                                crend('button','delete',{}).on('click',() => {
-                                    fetch(`/api/deletefile/${value}`,{
-                                        method:"DELETE",
-                                        headers:{},
-                                    }).then(res => res.json())
-                                    .then(async data => {
-                                        filenameinput.value = null
-                                        await update({
-                                            _id:this.entity._id,
-                                            [attribute.name]:null,
-                                        })
-                                        refreshrerender()
-                                        
-                                    })
-                                })
-
+                                // crend('a','download',{download:value,href:`/api/download/${fileobject.nameondisk}`})
                             end()
                             valueretrievers.push(() => {
                                 return [attribute.name,filenameinput.value]
                             })
                         }else if(datatype.name == 'array'){
-
+                            let input = crend('input','',{})
+                            input.value = value ?? ''
+                            valueretrievers.push(() => {
+                                return [attribute.name,input.value.split(',')]
+                            })
+                        }else if(datatype.name == 'multiplechoice'){
+                            let input = cr('select')
+                                crend('option','',{})
+                                for(var option of attribute?.options ?? []){
+                                    crend('option',option,{})
+                                }
+                            end()
+                            input.value = value
+                            valueretrievers.push(() => {
+                                return [attribute.name,input.value]
+                            })
                         }else if(datatype.name == 'color'){
                             let input = crend('input','',{type:'color'})
                             input.value = value
                             valueretrievers.push(() => {
                                 return [attribute.name,input.value]
                             })
+                        }else if(datatype.name == 'fileself'){
+                            crend('button','delete self and file on disk').on('click',() => {
+                                fetch(`/api/deletefile/${this.entity.nameondisk}`,{
+                                    method:"DELETE",
+                                    headers:{},
+                                }).then(res => res.text()).then(async data => {
+                                    await removeID(this.entity._id)
+                                    router.navigateID(this.entity.parent)
+                                    refreshrerender()
+                                })
+                            })
+                            crend('img','',{src:`/api/download/${this.entity.nameondisk}`,style:"max-width:300px;max-height:300px;display:block;"})
+                        }else{
+                            crend('div','datatype not found')
                         }
                     end()
                 }
                 crend('br')
-                let textarea = crend('textarea',JSON.stringify(this.entity,null,2),{rows:10,class:'form-control'})
+                let textarea = crend('textarea',JSON.stringify(this.entity,null,2),{rows:10,class:'form-control',name:"raw json data"})
                 crend('br')
-                crend('button','update textarea',{class:'btn btn-primary'}).on('click',async () => {
+                crend('button','save textarea',{class:'btn btn-primary'}).on('click',async () => {
                     let data = JSON.parse(textarea.value)
                     await update(data)
+                    await refreshrerender()
                 })
+
+                cr('div')
+                    crend('h2','backrefs')
+                    for(var backref of this.backrefentities){
+                        cr('div')
+                        crend('a',backref.name,{href:`/detail/${backref._id}`})
+                        end()
+                    }
+                end()
                 
             end()
         end()
+
+        // Add a keyboard shortcut for saving the object
+        // document.addEventListener('keydown', async (event) => {
+        //     if (event.ctrlKey && event.key === 's') { // Ctrl+S shortcut
+        //         event.preventDefault(); // Prevent the default browser save action
+        //         await saveObject();
+        //     }
+        // });
+
         // listview
     
         //find all the objects that point towards me
@@ -270,14 +394,20 @@ class DetailView{
 
 function getAttributes(objdefid){
     let objdef = deref(objdefid)
-    let result = getchildren(objdefid).slice()
+    let result = getChildrenOfType(objdefid,'attribute').slice()
     if(objdef.extends){
-        result.splice(0,0,...getchildren(objdef.extends))
+        result.push(...getChildrenOfType(objdef.extends,'attribute'))
     }
+    result.sort((a,b) => a.order - b.order)
     return result
 }
 
 function deref(id){
+    // var obj = idmap[id]
+    // if(obj.autoderef == true){
+    //     return deref(obj.ref)
+    // }
+    // return obj
     return idmap[id]
 }
 
@@ -287,6 +417,22 @@ function getchildren(id){
     }else{
         return []
     }
+}
+
+function getChildrenOfType(id,type){
+    var children = getchildren(id)
+    return children.filter(c => c.type == namemap[type]._id)
+}
+
+function isType(item,type){
+    if(item.type){
+        return getType(item) == type
+    }
+    return false
+}
+
+function getType(item){
+    return deref(item.type).name
 }
 
 function getDescendants(id){
@@ -308,4 +454,25 @@ function getancestorpath(id){
     return result
 }
 
+function updateOrder(nodeid){
+    //all children below a node should have an increasing order number
+    //this should work recursively and update the entire tree below the ndoe
+    let children = getchildren(nodeid)
+    
+    // Sort children by current order to preserve relative ordering
+    children.sort((a, b) => (a.order || 0) - (b.order || 0))
+    
+    let start = Math.floor(children[0].order)
+    // Assign sequential order numbers
+    for (let i = 0; i < children.length; i++) {
+        let x = start + i
+        children[i].order = x
+        update(children[i])
+    }
+    
+    // Recursively update order for each child's descendants
+    // for (let child of children) {
+    //     updateOrder(child._id)
+    // }
+}
 

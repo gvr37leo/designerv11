@@ -17,6 +17,7 @@ class ListView{
     async load(filter,sort){
         this.data = await query(filter,sort)
         this.filterset = {filter,sort}
+        
     }
 
     async reload(){

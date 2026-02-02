@@ -21,8 +21,6 @@ class Entity{
 }
 
 class Appdef extends Entity{
-    typedef
-
     constructor(obj){
         super(obj)
         Object.assign(this,obj)
