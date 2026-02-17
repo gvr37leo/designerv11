@@ -1,6 +1,7 @@
 class Router{
 
     listeners = []
+    preroutecb
 
     constructor(){
         
@@ -11,6 +12,9 @@ class Router{
     }
 
     trigger(string){
+        if(this.preroutecb?.(string) == false){
+            return
+        }
         for (var routeRegistration of this.listeners) {
             var result = routeRegistration.regex.exec(string)
             if(result != null){

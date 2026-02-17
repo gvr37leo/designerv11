@@ -18,6 +18,7 @@ function drawHeader(){
                     if(file){
                         const text = await file.text()
                         const data = JSON.parse(text)
+
                         const res = await createMany(data)
                     }
                 }
@@ -26,50 +27,35 @@ function drawHeader(){
         end()
 
         cr('div',{style:'display:flex;align-items:flex-start;gap:10px; align-items:center;'})
-            crend('button','delete orphans',{}).on('click',async () => {
-                //get every entity
-                var allIds = new Set(entities.map(e => e._id))
+            
+            crend('a','listview',{href:`/listview/${namemap['entity']._id}`})
+
+            // crend('button','delete orphans',{}).on('click',async () => {
+            //     //get every entity
+            //     var allIds = new Set(entities.map(e => e._id))
                 
-                //save their id's in a set
-                var danglingIds = []
+            //     //save their id's in a set
+            //     var danglingIds = []
                 
-                //if an entity has a parent id that doesnt reference an existing entity
-                //that means it's a dangling child
-                //note that having null as a parent value is fine since that means it's a root node
-                for(var entity of entities){
-                    if(entity.parent != null && !allIds.has(entity.parent)){
-                        danglingIds.push(entity._id)
-                    }
-                }
+            //     //if an entity has a parent id that doesnt reference an existing entity
+            //     //that means it's a dangling child
+            //     //note that having null as a parent value is fine since that means it's a root node
+            //     for(var entity of entities){
+            //         if(entity.parent != null && !allIds.has(entity.parent)){
+            //             danglingIds.push(entity._id)
+            //         }
+            //     }
                 
-                if(danglingIds.length > 0){
-                    await remove({_id: danglingIds})
-                    await refreshrerender()
-                }
-            })
+            //     if(danglingIds.length > 0){
+            //         await remove({_id: danglingIds})
+            //         await refreshrerender()
+            //     }
+            // })
 
             if(isLoggedIn()){
                 crend('div',`logged in as ${getcurrentuser().name} : ${getcurrentRole()}`)
                 crend('button','logout',{class:'btn btn-primary'}).on('click', async () => {
                     logout()
-                    await refreshrerender()
-                })
-            }else{
-
-                var usernameinput = crend('input')
-                crend('button','login',{class:'btn btn-primary'}).on('click',async () => {
-                    var res = await fetch('/api/login',{
-                        method:'POST',
-                        headers:{
-                            'Content-Type': 'application/json'
-                        },
-                        body:JSON.stringify({username:usernameinput.value})
-                    }).then(res => res.json())
-                    localStorage.setItem('sessionid',res.sessionid)
-                    //get the users role
-                    var founduser = entities.find(e => e.name == usernameinput.value)// && e.type == findbyname('user')._id
-                    
-                    localStorage.setItem('currentuserid',founduser._id)
                     await refreshrerender()
                 })
             }

@@ -178,11 +178,18 @@ class ListView{
                         crend('option','regex',{value:'$regex'})
                     end()
                     crend('br')
-                    let textinput = crend('input','',{})
+                    let textinput = crend('input','',{style:'width:100%;'})
                     textinput.on('change',() => {
                         this.reload()
+                        debugger
+                        var filter = this.exportfilter()
+                        var res = objectToUrlParam(filter)
+                        const urlParams = new URLSearchParams(window.location.search);
+                        urlParams.set('filter', res);
+                        window.location.search = urlParams;
                     })
                     this.filtermap[attribute.name] = textinput
+                    
                 end()
             }
         end()
@@ -198,6 +205,11 @@ class ListView{
                     if(datatype == null){
                         continue   
                     }
+
+                    if(datatype.name == 'json'){
+                        continue
+                    }
+
                     cr('td')
                         let value = entity[attribute.name]
 
@@ -209,18 +221,20 @@ class ListView{
                             // })
                         }else if(datatype.name == 'pointer'){
                             // deref to the name
-                            let dereffedobj = idmap[value]
+                            let dereffedobj = deref(value)
                             crend('a',dereffedobj?.name ?? 'null',{href:`/detail/${value}`})
                         }else if(datatype.name == 'number'){
                             crend('div',value)
                         }else if(datatype.name == 'text'){
                             crend('div',value)
                         }else if(datatype.name == 'date'){
-                            crend('div',new Date(value).toLocaleString())
+                            crend('div',moment(new Date(value)).format('YYYY/MM/DD HH:mm'))
                         }else if(datatype.name == 'boolean'){
                             crend('div',value)
                         }else if(datatype.name == 'json'){
                             //nothing
+                        }else{
+                            crend('div',value)
                         }
                     end()
                 }
@@ -283,4 +297,14 @@ function groupby(arr,key){
 
 function isEmpty(val){
     return val == null || val == undefined || val == ''
+}
+
+function objectToUrlParam(obj) {
+    const jsonString = JSON.stringify(obj);
+    return btoa(jsonString);
+}
+
+function urlParamToObject(param) {
+    const jsonString = atob(param);
+    return JSON.parse(jsonString);
 }

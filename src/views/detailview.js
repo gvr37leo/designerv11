@@ -94,6 +94,7 @@ class DetailView{
                 }
 
                 // Update the button click handler to use the saveObject function
+                //check if has writeaccess
                 crend('button','Save',{class:'btn btn-primary'}).on('click', saveObject)
             end()
             

@@ -28,6 +28,19 @@ async function query(query,sort){
     })
 }
 
+async function pathsearch(path){
+    return fetch('/api/pathsearch',{
+        method:'POST',
+        headers:{
+            'Content-Type': 'application/json',
+            'sessionid':getSessionId(),
+        },
+        body:JSON.stringify({path:path})
+    }).then(res => res.json()).catch((reason) => {
+        toastr.error('Error', reason)
+    })
+}
+
 async function queryOne(querydata){
     var res = await query(querydata,{})
     return res[0]

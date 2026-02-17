@@ -32,9 +32,45 @@
 //for long lists, dont show them in the tree, only show the table view, select item there, only show selected item in the tree path and maybe ... for the others, or chrome style arrayview
 //make a function that scans the uploads folder and checks if they all have a referencing entity, if not create an entity
 
+//for rights, can't allow certain roles to make rights or roles
+//each role should somehow have a list if which type of objects they're allowed to create and edit, this can combo well with the tree based rights
+//admins should be able to do everything, creating roles and rights etc
+//how to represent this?
+//put role pointers beneath objdefs (or special obj)
+//put objdef pointers beneath the roles, i kinda like this idea, keeps the objdefs clean
+//this can also be used to shorten the super long combolist for the type dropdown
 
+//optimizations
+//thin tree
+//only load visible tree nodes
+//304 no changes response from server
+//mongodb indices
+//ancestor array
 
+//maybe get a call to get all the type info and stuff like that first real quick
+//have tree loading done only on pages that have the tree view
+//custom pages should not have to load the tree
+//role based access still needs flushing out
 
+async function login(username,password){
+    var res = await fetch('/api/login',{
+        method:'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({username:username,password:password})
+    }).then(res => res.json())
+
+    if(res.succesfull == true){
+        localStorage.setItem('sessionid',res.sessionid)
+        var founduser = entities.find(e => e.name == username)// && e.type == findbyname('user')._id
+        localStorage.setItem('currentuserid',founduser._id)
+        return true
+    }else{
+        
+        return false
+    }
+}
 
 function logout(){
     localStorage.removeItem('currentuserid')
@@ -51,6 +87,36 @@ function getcurrentuser(){
 function getcurrentRole(){
     return deref(getcurrentuser()?.role)?.name
 }
+
+function hasReadAccess(nodeid,user){
+
+    if(deref(getcurrentuser())?.role?.allowall == true){
+        return true
+    }
+
+    var node = deref(nodeid)
+    var objdefrights =  getChildrenOfType(deref(getcurrentuser().role),'objdefright') 
+    var matchedobjrights = objdefrights.filter(r => r.objdefp == node.type)
+    var hasobjreadaccess = matchedobjrights.find(r => r.read == true) != null
+
+
+    var hastreereadaccess = false
+    //get all rights that have your role or user
+    //get ancestor path
+    //check if any of these rights have a parent in the ancestor path
+    //this is not a good idea cause you have to do it for every node in the tree
+    //should make a tree in the refresh function and read from there
+
+
+    return hasobjreadaccess && hastreereadaccess
+
+}
+
+function hasWriteAccess(node,user){
+
+}
+
+
 
 var router = new Router()
 var entities = []
@@ -88,11 +154,65 @@ async function refreshrerender(){
 }
 
 
+router.preroutecb = function(route){
+
+
+    if(route.includes('/login')){
+        return true
+    }
+
+    if(isLoggedIn() == false){
+        this.navigate('/login')
+        return false
+    }
+
+    if(route.includes('/admin')){
+        if(getcurrentRole() == 'admin'){
+            return true
+        }else{
+            //only admin and beheerder are allowed, navigate to homepage or practicepage
+            this.navigate('/')
+            return false
+        }
+    }
+    //check if loggedin
+    //if not, cancel the route event and navigate to the login page (that one shouldnt need a login)
+    //if yes, continue as normal
+    //for the admin side, should also check if you have the admin role
+
+    return true
+}
+
 refresh().then(() => {
     drawHeader()
+
     router.listen(/home/,async (match) => {
         appcontainer.innerHTML = ''
-        homepage()
+        // homepage()
+    })
+
+    router.listen(/login/, async (match) => {
+        startContext(appcontainer)
+        appcontainer.innerHTML = ''
+        loginPage()
+        endContext()
+    })
+
+    router.listen(/practice\/(?<id>.*)/, async (match) => {
+        
+        practicePage(parseInt(match.groups.id))
+    })
+
+    router.listen(/patient\/(?<id>.*)/, async (match) => {
+        patientPage(parseInt(match.groups.id))
+    })
+
+    router.listen(/order\/(?<id>.*)/, async (match) => {
+        orderPage(parseInt(match.groups.id))
+    })
+
+    router.listen(/practiceselect/, async (match) => {
+        practiceselect()
     })
 
     router.listen(/detail\/(?<id>.*)/,async (match) => {
@@ -111,20 +231,7 @@ refresh().then(() => {
     })
 
     router.listen(/listview\/(?<id>.*)/,async (match) => {
-        current = idmap[match.groups.id]
-        var objdef = current
-        var attributes = getAttributes(objdef._id)
-        startContext(appcontainer)
-        appcontainer.innerHTML = ''
-        let containter = cr('div',{style:'display:flex; align-items:flex-start;'})
-            let listviewcontainer = crend('div','',{style:"background:white; margin:0px 10px; padding:5px;border-radius:3px;"})
-            listview.metaAttributes = attributes
-            await listview.load({"type":{"$eq":objdef._id}},{updatedAt:-1})
-            startContext(listviewcontainer)
-                listview.render()
-            endContext()
-        end()
-        endContext()
+        await listviewpage(match.groups.id)
     })
 
     this.router.listen(/./,async () => {

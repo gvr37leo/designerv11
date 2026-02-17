@@ -78,14 +78,62 @@ async function start(){
             var usertype = await collection.findOne({name:'user'})
             var user = await collection.findOne({type:usertype._id,name:req.body.username})
             if(user == null){
-                res.status(404).send()
+                res.status(404).send({
+                    succesfull:false,
+                })
+                return
             }
-            let sessionid = Math.floor(Math.random() * 1000000000)
-            var x = await collection.findOneAndUpdate({_id:user._id},{$set:{sessionid:sessionid}})
-            res.send({
-                sessionid:sessionid,
-            })
+            if(user.password == req.body.password){
+                let sessionid = Math.floor(Math.random() * 1000000000)
+                var x = await collection.findOneAndUpdate({_id:user._id},{$set:{sessionid:sessionid}})
+                res.send({
+                    succesfull:true,
+                    sessionid:sessionid,
+                })
+            }else{
+                res.send({
+                    succesfull:false,
+                })
+            }
+            
         })
+
+        
+
+        // app.post('/api/registerlogin',async (req,res) => {
+        //     //see if email is already in the database
+        //     //if not, create user and send login email
+        //     //if yes, just send login email
+
+        //     var usertype = await collection.findOne({name:'user'})
+        //     var user = await collection.findOne({type:usertype._id,email:req.body.email})
+        //     var logintoken = 123456789
+        //     if(user == null){
+        //         user = await collection.insertOne({
+        //             name:req.body.email,
+        //             email:req.body.email,
+        //             type:usertype._id,
+        //             logintoken:logintoken,
+        //             extends:0,
+        //         })
+        //     }
+
+        //     sendemail(req.body.email,'login link',`click on this <a href="localhost:8000/login?logintoken=${logintoken}">link</a> to login`)
+        //     res.send()
+        // })
+
+        // app.post('/api/verifylogin',async (req,res) => {
+
+        //     var founduser = await collection.findOne({logintoken:req.body.logintoken})
+        //     if(founduser == null){
+        //         res.status(403).send()
+        //     }
+            
+        //     var sessiontoken = 123456789
+        //     res.cookie('sessiontoken',sessiontoken,{maxAge:0}).send()
+
+        // })
+
 
 
 
@@ -258,6 +306,40 @@ async function start(){
             
             res.send(result)
         })
+
+        app.post('/api/pathsearch',async function(req,res){
+            try{
+                let path = req.body.path || ''
+                let segments = path.split('/').filter(s => s.length > 0)
+
+                let currentnode = null
+                let nodes = []
+
+                for(let seg of segments){
+                    if(seg.startsWith('[') && seg.endsWith(']')){
+                        // explicit id like [123456]
+                        let id = parseInt(seg.slice(1, -1))
+                        let node = await collection.findOne({_id: id})
+                        currentnode = node
+                        // nodes.push(node)
+                    } else if(seg === '*'){
+                        // wildcard: get all children of the current node
+                        var arr = await collection.find({ parent: currentnode._id }).toArray()
+                        nodes.push(...arr)
+                        break
+                    } else {
+                        // named segment: find node with this name
+                        let node = await collection.findOne({ name: seg })
+                        currentnode = node
+                        // nodes.push(node)
+                    }
+                }
+                res.send(nodes)
+            }catch(e){
+                console.error('pathsearch error', e)
+                res.status(500).send({ error: e.message })
+            }
+        })
     
         app.put('/api/update',async function(req, res){
             //find user with sessionid
@@ -308,4 +390,8 @@ async function scanUploads(){
     //scan the uploads folder and check if there are any files that dont have an entity referencing them in the database
     //if not create a fileobjdef entity for them
     //every file should have a fileobjdef entity in the database under the files entity
+}
+
+async function sendemail(to,title,contents){
+
 }

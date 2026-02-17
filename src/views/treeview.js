@@ -107,10 +107,20 @@ class Treenode{
         //getrole
         var allowedToSee = false
         var currentrole = getcurrentRole()
+
+        if(currentrole.allowall == true){
+            allowedToSee = true
+        }
+
+        
         if(this.allowedRoles.includes(currentrole)){
             allowedToSee = true
         }
 
+        //also start checking the objdefrights for the role
+        
+
+        //allowedtosee should be true if, the users role has this objtype in it's allowedlist and is in the allowedroles list, thanks to having a ancestor with his role in the rights
 
 
         children.sort((a,b) => a.order - b.order)
