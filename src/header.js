@@ -1,6 +1,8 @@
-function drawHeader(){
-    header.innerHTML = ''
-    startContext(header)
+async function drawHeader(){
+
+    // var currentuser = await getcurrentuser()
+    //expects currentuser to have already been retrieved by caller
+
     cr('div',{style:'display:flex; justify-content:space-between; background:white; padding:10px; align-items:center;'})
         cr('div',{style:'display:flex; align-items:flex-start; gap:10px;'})
 
@@ -53,7 +55,7 @@ function drawHeader(){
             // })
 
             if(isLoggedIn()){
-                crend('div',`logged in as ${getcurrentuser().name} : ${getcurrentRole()}`)
+                crend('div',`logged in as ${currentuser.name} : ${currentuser.rolederef.name}`)
                 crend('button','logout',{class:'btn btn-primary'}).on('click', async () => {
                     logout()
                     await refreshrerender()
@@ -62,5 +64,38 @@ function drawHeader(){
         end()
     end()
     crend('br')
-    endContext()
+}
+
+
+async function drawSupraHeader(){
+    var currentuser = await getcurrentuser()
+    cr('div',{style:'display:flex; justify-content:space-between; background:white; padding:10px; align-items:center;'})
+        cr('div',{style:'display:flex; align-items:flex-start; gap:10px;'})
+
+            crend('h1','Supra Solutions')
+            
+        end()
+
+        cr('div',{style:'display:flex;align-items:flex-start;gap:10px; align-items:center;'})
+            if(isLoggedIn()){
+                crend('div',`logged in as ${currentuser.name} : ${currentuser.rolederef.name}`)
+                crend('button','logout',{class:'btn btn-primary'}).on('click', async () => {
+                    logout()
+                    await refreshrerender()
+                })
+            }
+        end()
+    end()
+}
+
+//errors because idmap is only available on detailview
+async function getcurrentuser(){
+    // await query({},{},['role'])
+
+    var user = (await query({_id:parseInt(localStorage.getItem('currentuserid'))},{},['role']))[0]
+
+    // var user = await getById(parseInt(localStorage.getItem('currentuserid')))
+    // var role = await getById(user.role)
+    // user.rolederef = role
+    return user
 }

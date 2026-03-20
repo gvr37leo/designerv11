@@ -6,7 +6,14 @@ async function createMany(data){
             'sessionid':getSessionId(),
         },
         body:JSON.stringify(data)
-    }).then(res => res.json()).catch((reason) => {
+    }).then(async res => {
+        if(res.ok){
+            return true
+        }else{
+            var data = await res.json()
+            throw new Error(data.error)
+        }
+    }).catch((reason) => {
         toastr.error('Error', reason)
     })
 }
@@ -15,17 +22,21 @@ async function createOne(data){
     return createMany([data])
 }
 
-async function query(query,sort){
+async function query(query,sort,derefs = []){
     return fetch('/api/query',{
         method:'POST',
         headers:{
             'Content-Type': 'application/json',
             'sessionid':getSessionId(),
         },
-        body:JSON.stringify({filter:query,sort:sort})
+        body:JSON.stringify({filter:query,sort:sort,derefs:derefs})
     }).then(res => res.json()).catch((reason) => {
         toastr.error('Error', reason)
     })
+}
+
+async function getById(id){
+    return await queryOne({_id:id})
 }
 
 async function pathsearch(path){
@@ -36,6 +47,19 @@ async function pathsearch(path){
             'sessionid':getSessionId(),
         },
         body:JSON.stringify({path:path})
+    }).then(res => res.json()).catch((reason) => {
+        toastr.error('Error', reason)
+    })
+}
+
+async function gettree(nodeid,depth){
+    return fetch('/api/gettree',{
+        method:'POST',
+        headers:{
+            'Content-Type': 'application/json',
+            'sessionid':getSessionId(),
+        },
+        body:JSON.stringify({id:nodeid,depth:depth})
     }).then(res => res.json()).catch((reason) => {
         toastr.error('Error', reason)
     })
@@ -67,8 +91,16 @@ async function update(data){
             'sessionid':getSessionId(),
         },
         body:JSON.stringify(data)
-    }).then(res => res.json()).catch((reason) => {
-        toastr.error('Error', reason)
+    }).then(async res => {
+        if(res.ok){
+            return true
+        }else{
+            var data = await res.json()
+            throw new Error(data.error)
+        }
+    }).catch((reason) => {
+        toastr.error(reason)
+        return false
     })
 }
 
@@ -80,8 +112,16 @@ async function remove(query){
             'sessionid':getSessionId(),
         },
         body:JSON.stringify(query)
-    }).then(res => res.json()).catch((reason) => {
+    }).then(async res => {
+        if(res.ok){
+            return true
+        }else{
+            var data = await res.json()
+            throw new Error(data.error)
+        }
+    }).catch((reason) => {
         toastr.error('Error', reason)
+        return false
     })
 }
 

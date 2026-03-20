@@ -14,8 +14,8 @@ class DetailView{
     }
 
     async load(id){
-        this.listview.metaAttributes = getchildren(namemap['entity']._id)
-        await this.listview.load({parent:{"$eq":id}},{updatedAt:-1})
+        // this.listview.metaAttributes = getchildren(namemap['entity']._id)
+        // await this.listview.load({parent:{"$eq":id}},{updatedAt:-1})
         this.entity = deref(id)
         if(this.entity == null){
             return
@@ -36,7 +36,9 @@ class DetailView{
             //also check all proxy's to see if their ref field references you
             //can be made a lot faster if you make maps of all pointer fields
             var backrefattributes = entities.filter(e => e.datatype == namemap['pointer']._id && e.pointertype == this.entity.type)
+            //role exists twice as attribute and causes duplicates in backrefs
             this.backrefentities = []
+
             for(var backrefattribute of backrefattributes){
                 this.backrefentities.push(...entities.filter(e => e[backrefattribute.name] ==  this.entity._id)) 
             }
@@ -88,9 +90,11 @@ class DetailView{
                         let data = valueretriever()
                         res[data[0]] = data[1]
                     }
-                    await update(res)
-                    await refreshrerender()
-                    toastr.success('Saved')
+                    if(await update(res)){
+                        toastr.success('Saved')
+                        await refreshrerender()
+                    }
+                    
                 }
 
                 // Update the button click handler to use the saveObject function
@@ -102,6 +106,12 @@ class DetailView{
             let valueretrievers = []
             cr('div')
                 for(let attribute of this.attributes){
+                    if(currentrole.name != 'admin'){
+                        if(attribute.name == 'codeid'){
+                            continue
+                        }
+                    }
+                    
                     let datatype = idmap[attribute.datatype]
                     if(datatype == null){
                         continue
@@ -162,12 +172,30 @@ class DetailView{
                                 return [attribute.name,iconinput.value]
                             })
                         }else if(datatype.name == 'pointer'){
-                            // deref to the name
-                            let dereffedobj = idmap[value]
+                            
+
+                            let dereffedobj = deref(value)
                             let link = crend('a',dereffedobj?.name,{href:`/detail/${value}`})
                             cr('div',{class:'input-group'})
                                 let options = []
-                                if(deref(attribute.tree) != null){
+                                if(attribute.name == 'role'){
+                                    // check which roles you're allowed to assign
+                                    // get users role and check your inferiors
+                                    // if no inferiors hide this attribute
+
+                                    //get your own role and children, that's what you're allowed to assign
+                                    //maybe use the tree structure to do this instead of a special field
+                                    //objdefpointers also use the tree structure
+                                    
+                                    //get all roles/ search in there
+                                    var roledef = findbycodeid('roledef')
+                                    entities.filter(e => e.superior == currentrole._id)
+                                    var lowerroles = getDescendants(currentrole._id).filter(e => e.type == roledef._id)
+                                    if(lowerroles.length == 0){
+                                        // ?
+                                    }
+                                    options = [currentrole,...lowerroles]
+                                }else if(deref(attribute.tree) != null){
                                     options = getchildren(attribute.tree)
                                 }else{
                                     options = search(entities,{type:attribute.pointertype})
@@ -204,12 +232,13 @@ class DetailView{
                                 return [attribute.name,input.valueAsNumber]
                             })
                         }else if(datatype.name == 'text'){
-                            let input = crend('input','',{value:value,name:attribute.name,class:'form-control'})
+                            let input = crend('input','',{value:value ?? '',name:attribute.name,class:'form-control'})
                             valueretrievers.push(() => {
                                 return [attribute.name,input.value]
                             })
                         }else if(datatype.name == 'date'){
                             let input = crend('input','type',{type:'datetime-local',name:attribute.name,class:'form-control'})
+                            // input.value = moment(new Date(value)).format("YYYY-MM-DDTHH:mm:ss")//rounding it causes the up to date check serverside to fail
                             input.valueAsNumber = value
                             valueretrievers.push(() => {
                                 return [attribute.name,input.valueAsNumber]
@@ -320,14 +349,20 @@ class DetailView{
                         }
                     end()
                 }
-                crend('br')
-                let textarea = crend('textarea',JSON.stringify(this.entity,null,2),{rows:10,class:'form-control',name:"raw json data"})
-                crend('br')
-                crend('button','save textarea',{class:'btn btn-primary'}).on('click',async () => {
-                    let data = JSON.parse(textarea.value)
-                    await update(data)
-                    await refreshrerender()
-                })
+                if(currentrole.name == 'admin'){
+                    crend('br')
+                    const json = JSON.stringify(this.entity, null, 2);
+                    const collapsedJson = json.replace(/\[\s+([\s\S]*?)\s+\]/g, (match, content) => {
+                        return `[${content.replace(/\s+/g, ' ')}]`;
+                    });
+                    let textarea = crend('textarea',collapsedJson,{rows:10,class:'form-control',name:"raw json data"})
+                    crend('br')
+                    crend('button','save textarea',{class:'btn btn-primary'}).on('click',async () => {
+                        let data = JSON.parse(textarea.value)
+                        await update(data)
+                        await refreshrerender()
+                    })
+                }
 
                 cr('div')
                     crend('h2','backrefs')
@@ -368,7 +403,7 @@ class DetailView{
             })
         }
         let names = attributes.map(a => a.name)
-        cr('div',{style:'background:white; border-radius:3px; padding:5px;'})
+        // cr('div',{style:'background:white; border-radius:3px; padding:5px;'})
             // cr('div',{style:'display:flex;gap:10px;'})
             //     for(let name of names){
             //         crend('button',name,{class:'btn btn-primary'}).on('click',async () => {
@@ -381,12 +416,12 @@ class DetailView{
             //         })
             //     }
             // end()
-            let listviewcontainer = cr('div')
-                this.listview.render()
+            // let listviewcontainer = cr('div')
+            //     this.listview.render()
                 
-                // listview({parent:entity._id},{updatedAt:'desc'})
-            end()
-        end()
+            //     // listview({parent:entity._id},{updatedAt:'desc'})
+            // end()
+        // end()
         //now that we have the names of all the fields that could point towards us we can make a query for each of them
         // like this {<nameofattribute>:entity._id}
         
@@ -420,14 +455,17 @@ function getchildren(id){
     }
 }
 
-function getChildrenOfType(id,type){
+function getChildrenOfType(id,typestr){
+    var objdefs = typegroups[findbyname('objdef')._id]
+    var typeobj = objdefs.find(e => e.name == typestr)
+
     var children = getchildren(id)
-    return children.filter(c => c.type == namemap[type]._id)
+    return children.filter(c => c.type == typeobj._id)
 }
 
-function isType(item,type){
+function isType(item,typestr){
     if(item.type){
-        return getType(item) == type
+        return getType(item) == typestr
     }
     return false
 }

@@ -23,7 +23,6 @@ function loginPage(){
             crend('button','login',{}).on('click',async () => {
                 var succesfull = await login(username.value,password.value)
                 if(succesfull){
-                    drawHeader()
                     router.navigate('/')
                 }else{
                     toastr.error('wrong username and password')

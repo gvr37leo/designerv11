@@ -7,6 +7,7 @@ let bodyParser = require("body-parser")
 let path = require("path")
 var express = require('express')
 var app = express()
+var emailsender = require('./emailsender')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -189,55 +190,42 @@ async function start(){
         }
 
         async function authorization(id,req,crudop){
-            return true
+            var entity = await deref(id)
             var sessionid = parseInt(req.get('sessionid'))
-            var sessionuser = await getUserWithSessionId(sessionid)
-            // let roles = await getUserRoles(sessionuser._id)
-            // do something with the parentnode to check for crud rights
-            
-            //get all rights that have this user or this users role
-            //get the parents of those rights
-            //check if that parent is in this node's ancestor path
-            //if so allow
-
-            //maybe add a setting to turn off and on authorization
-
-
-            if(sessionuser == null){
+            var user = await getUserWithSessionId(sessionid)
+            if(user == null){
                 return false
             }
-
-            let rightnode = await collection.findOne({name:'right'})
-
-            var ancestors = await getancestors(id)
-            for(var ancestor of ancestors){
-
-                let children = await getchildren(ancestor._id)
-                let rights = children.filter(c => c.type == rightnode._id)
-
-                for(var right of rights){
-                    if(right.exludeself && ancestor == ancestors[0]){
-                        continue
-                    }
-
-                    
-                    //get a list of roles the user is included in
-                    //first get all the roles
-                    //then get all the children, these children are probable pointers
-                    if(right[crudop] == true && (sessionuser.role == right.role || sessionuser._id == right.user)){
-                        return true
-                    }
-                }
+            var role = await deref(user.role)
+            if(role.name == 'admin'){
+                return true
             }
-            return false
+            
 
-            //find ancestors
-            //for each get the rights children
-            //check the role/user of the right
-            //check the crudtype of the right
-            //as soon as you find a valid right -> allow
-            //if none encountered -> deny
+            
 
+            var objproxys = await getChildrenOfType(role._id,'proxy')
+            var hasobjaccess = objproxys.map(p => p.ref).includes(entity.type)
+
+
+            
+            let rightobjdef = await collection.findOne({name:'right'})
+            let rights = await collection.find({type:rightobjdef._id}).toArray()
+            rights = rights.filter(r => (r.rightrole == user.role || r.user == user._id) && r[crudop] == true)//also check crudop
+            rights = rights.filter(r => entity.ancestors.includes(r.parent))
+            var hasrightaccess = rights.length > 0
+            //part 1, check role of user, see what objdefs are allowed, check if entity is in there
+            //part 2 get all rights, filter all the rights with the correct user or role and crudop, for all those rights filter for if their parentid is in the ancestor array
+            //if length > 0 the success
+            //if part1 && part2 then success
+            return hasobjaccess && hasrightaccess
+        }
+
+        async function getChildrenOfType(id,typestr){
+            var objdef = await collection.findOne({name:'objdef'})
+            var type = await collection.findOne({name:typestr,type:objdef._id})
+            let children = await collection.find({parent:id,type:type._id}).toArray()
+            return children
         }
 
         app.post('/api/touch',async function(req,res){
@@ -263,32 +251,12 @@ async function start(){
             res.send(current)
         })
 
-        app.post('/api/create',async function(req, res){
-            let authresult = await authorization(req.body[0].parent,req,'create')
-            if(authresult == false){
-                res.status(403).send()
-                return
-            }
 
-            for(var entity of req.body){
-                if(entity._id == null){
-                    entity._id = Math.floor(Math.random() * 1000000000)
-                }
-                entity.order = entity.order ?? 1
-                entity.createdAt = Date.now()
-                entity.updatedAt = Date.now()
-            }
-
-            var result = await collection.insertMany(req.body)
-            
-
-            res.send(result)
-        })
 
         app.post('/api/read',async function(req,res){
-            if(await authorization(req,res) == false,'read'){
-                return
-            }
+            // if(await authorization(req,res) == false,'read'){
+            //     return
+            // }
 
             //read one read descendants?
             let oasd = await getdescendants(req.body._id)
@@ -301,9 +269,42 @@ async function start(){
             // if(req.body._id){
             //     req.body._id = new mongodb.ObjectId(req.body._id)
             // }
-            var cursor = collection.find(req.body.filter).sort(req.body.sort)
-            var result = await cursor.toArray()
-            
+            var result = await collection.find(req.body.filter).sort(req.body.sort).toArray()
+
+            if(req.body.derefs){
+                for(var item of result){
+                    for(var deref of req.body.derefs){
+                        var derefpath = deref.split('.')
+                        var current = item
+                        for(var seg of derefpath){
+                            current = current[seg]
+                        }
+                        if(current != null){
+                            var dereffedobj = await collection.findOne({_id:current})
+                            item[deref + 'deref'] = dereffedobj
+                        }
+                    }
+                }
+            }
+            res.send(result)
+        })
+
+        app.post('/api/frontload',async function(req,res){
+
+            //todo if the user sends an timestamp of when they last retrieved data, the server can check if anyhting has changed since then
+            //if not it can send a message to the client to use the old data
+
+            var result = {}
+            //use session id
+            //get current user and role
+            //get necessary tree data
+            //get table listview data
+            var sessionid = parseInt(req.get('sessionid'))
+            var user = await getUserWithSessionId(sessionid)
+            user.rolederef = await collection.findOne({_id:user.role})
+            result.user = user
+            result.tree = await collection.find({}).toArray()
+            //filter this tree so only allowed data is sent
             res.send(result)
         })
 
@@ -325,13 +326,17 @@ async function start(){
                     } else if(seg === '*'){
                         // wildcard: get all children of the current node
                         var arr = await collection.find({ parent: currentnode._id }).toArray()
-                        nodes.push(...arr)
+                        nodes = arr;
                         break
                     } else {
                         // named segment: find node with this name
-                        let node = await collection.findOne({ name: seg })
+                        var query = {name: seg}
+                        if(currentnode != null){
+                            query.parent = currentnode._id
+                        }
+                        let node = await collection.findOne(query)
                         currentnode = node
-                        // nodes.push(node)
+                        nodes = [node]
                     }
                 }
                 res.send(nodes)
@@ -340,11 +345,98 @@ async function start(){
                 res.status(500).send({ error: e.message })
             }
         })
+
+        app.post('/api/resetpassword', async function(req,res){
+            
+            var user = await deref(req.body.userid)
+            user.password = '123'//generate random password for user
+            await collection.findOneAndUpdate({_id:user._id}, {$set:user})
+            await emailsender.sendmail(user.email,'supra login credentials',`<p>Hello ${user.name} this is your login ${user.password}</p>`)
+            res.send({message:'email sent'})
+        })
+
+        app.post('/api/gettree',async function(req,res){
+            const { id, depth } = req.body
+
+            try {
+                const result = await collection.aggregate([
+                    {
+                        $match: { _id: id }
+                    },
+                    {
+                        $graphLookup: {
+                            from: 'firstcollection',
+                            startWith: '$_id',
+                            connectFromField: '_id',
+                            connectToField: 'parent',
+                            as: 'descendants',
+                            maxDepth: depth - 1,
+                            depthField: "level",
+                            restrictSearchWithMatch: {}
+                        }
+                    }
+                ]).toArray()
+
+                if (result.length === 0) {
+                    res.status(404).send({ error: 'Node not found' })
+                } else {
+                    var data = result[0]
+                    var tree = buildTree([data,...data.descendants],id)
+                    delete tree.descendants
+                    res.send(tree)
+                }
+            } catch (e) {
+                console.error('gettree error', e)
+                res.status(500).send({ error: e.message })
+            }
+        })
+
+
+        app.post('/api/create',async function(req, res){
+            //todo only checks the first entity
+            let authresult = await authorization(req.body[0].parent,req,'create')
+            if(authresult == false){
+                res.status(403).send({error:'not allowed'})
+                return
+            }
+
+            for(var entity of req.body){
+                if(entity._id == null){
+                    entity._id = Math.floor(Math.random() * 1000000000)
+                }
+                if(typeof entity.type == 'string'){
+                    var objdef = await collection.findOne({name:'objdef'})
+                    var typeobj = await collection.findOne({name:entity.type,type:objdef._id})
+                    entity.type = typeobj._id ?? null
+                }
+                entity.order = entity.order ?? 1
+                entity.createdAt = Date.now()
+                entity.updatedAt = Date.now()
+                entity.children = []
+                entity.ancestors = []
+                //add yourself to parents children
+                //calc your ancestors
+                var parent = await deref(entity.parent)
+                parent.children.push(entity._id)
+                
+                await updateancestors(parent,entity)
+                await collection.findOneAndUpdate({_id:parent._id},{$set:parent})
+            }
+
+
+            var result = await collection.insertMany(req.body)
+            
+
+            res.send(result)
+        })
     
         app.put('/api/update',async function(req, res){
+            
+            
+
             //find user with sessionid
             if(await authorization(req.body._id,req,'update') == false){
-                res.status(403).send()
+                res.status(403).send({error:'not allowed'})
                 return
             }
             //todo updating the parent field should have extra strict authorization checking because you could move nodes to where you don't have authority
@@ -356,27 +448,128 @@ async function start(){
                 return 'error'
             }
 
+            delete req.body.ancestors//ancestors and children are handled by server
+            delete req.body.children
             req.body.updatedAt = Date.now()
-            //update backrefs
+
+            //check if parent was changed
+            if(req.body.parent != current.parent){
+                
+                //remove ref from parent children
+                //add ref to new parent children
+                var newparent = await deref(req.body.parent)
+                newparent.children.push(current._id)
+                await collection.findOneAndUpdate({_id:newparent._id}, {$set:newparent})
+
+                var oldparent = await deref(current.parent)
+                oldparent.children.splice(oldparent.children.findIndex(cid => cid == current._id),1)
+                await collection.findOneAndUpdate({_id:oldparent._id}, {$set:oldparent})
+                
+                
+                await updateancestors(newparent,req.body)
+                //update ancestors, of yourself and your children
+
+            }
+
             var result = await collection.findOneAndUpdate({_id:req.body._id}, {$set:req.body})
             res.send(result)
         })
     
         app.delete('/api/delete',async function(req, res){
             if(await authorization(req.body._id,req,'delete') == false){
-                res.status(403).send()
+                res.status(403).send({error:'not allowed'})
                 return
+            }
+
+            //remove yourself from parents children list
+            try{
+                var entity = await deref(req.body._id)
+                var parent = await deref(entity.parent)
+                parent.children.splice(parent.children.findIndex(cid => cid == req.body._id),1)
+                await collection.findOneAndUpdate({_id:parent._id},{$set:parent})
+            }catch(e){
+                console.error(e)
             }
             var descendants = await getdescendants(req.body._id)
 
             var result2 = await collection.deleteMany({_id:{$in:descendants.map(d => d._id)}})
             var result = await collection.findOneAndDelete({_id:req.body._id})
+
+            
+
             res.send({message:"success",result,result2})
         })
 
-        app.get('/*', function(req, res, next) {
+        app.get('/*', function(req, res) {
             res.sendFile(path.resolve('index.html'));
         });
+
+        app.post('/api/updatedata', async function(req,res){
+            //set the children and ancestors array of every entity in the database to the correct value
+            let allEntities = await collection.find({}).toArray();
+            let entityMap = new Map();
+            allEntities.forEach(e => entityMap.set(e._id, e));
+
+            // Reset children
+            allEntities.forEach(e => e.children = []);
+
+            // Build children
+            allEntities.forEach(e => {
+                if (e.parent && entityMap.has(e.parent)) {
+                    entityMap.get(e.parent).children.push(e._id);
+                }
+            });
+
+            // Build ancestors
+            async function buildAncestors(entity) {
+                if (!entity.parent) {
+                    entity.ancestors = [];
+                    return;
+                }
+                let parent = entityMap.get(entity.parent);
+                if (!parent) {
+                    entity.ancestors = [];
+                    return;
+                }
+                if (!parent.ancestors) {
+                    await buildAncestors(parent);
+                }
+                entity.ancestors = [...parent.ancestors, parent._id];
+            }
+
+            for (let entity of allEntities) {
+                await buildAncestors(entity);
+            }
+
+            // Update all
+            for (let entity of allEntities) {
+                await collection.findOneAndUpdate({_id: entity._id}, {$set:{children: entity.children, ancestors: entity.ancestors}});
+            }
+
+            res.send({message: "success"});
+        })
+
+        async function updateancestors(parent,entity){
+            entity.ancestors = [...parent.ancestors,parent._id]
+            await collection.findOneAndUpdate({_id:entity._id},{$set:entity})
+
+            var children = await getchildren(entity._id)
+            for(var child of children){
+                await updateancestors(entity,child)//todo can be done in parralel
+            }
+        }
+
+        //rolesallowedtosee
+        //rolesallowedtocreate
+        //rolesallowedtodelete
+        //rolesallowedtoupdate
+        //could also determine this from the ancestors array at runtime
+        //an items allowedroles should be updated everytime it is moved or when it's created
+        //but when a right is changed,moved,created or deleted or when a role or it's allowed objdefs pointers are created or changed
+        //then every entity needs to get updated
+        function updateAllowedRoles(startentity){
+            //loop over
+        }
 
     } catch (error) {
         console.error('Connection to MongoDB Atlas failed!\n retryng in 5 sec', error);
@@ -392,6 +585,39 @@ async function scanUploads(){
     //every file should have a fileobjdef entity in the database under the files entity
 }
 
-async function sendemail(to,title,contents){
 
+/**
+ * Converts a flat array of nodes into a nested tree.
+ * @param {Array} list - The flat array from MongoDB ($graphLookup results).
+ * @param {String|null} rootId - The ID of the top-level node to start from.
+ * @returns {Object|null} - The nested tree structure.
+ */
+function buildTree(list, rootId) {
+  const map = {};
+  let root = null;
+
+  // 1. Create a mapping of all items by their ID
+  // We also initialize a 'children' array for each node
+  list.forEach((node) => {
+    map[node._id] = { ...node, children: [] };
+  });
+
+  // 2. Link children to their parents
+  list.forEach((node) => {
+    const currentNode = map[node._id];
+    const parentId = node.parent;
+
+    if (node._id === rootId) {
+      // This is our starting "head" node
+      root = currentNode;
+    } else if (parentId && map[parentId]) {
+      // Push this node into its parent's children array
+      map[parentId].children.push(currentNode);
+    }
+  });
+
+  return root;
 }
+
+
+var protectednames = ['objdef']

@@ -10,17 +10,11 @@
 //container met bepaald type toestaan onder objdef? generic typing
 // generic for containers and or for pointers
 
-//top prios
-//login, authentication, sessions
-//filestorage
-//flushing out the supra data structure
 
 
 
 //maybe cache the meta trees but not the main data tree
 //sessions?
-//maybe leave login and authorization for later
-//not necessary at the start
 //focus on filestorage
 //maybe replace icons with emojis https://emojicopy.com/    https://www.freecodecamp.org/news/all-emojis-emoji-list-for-copy-and-paste/    https://unicode.org/emoji/charts/full-emoji-list.html
 //instead of deleting objects move them to the archive first,save the original parent in case you want to recover it
@@ -32,13 +26,6 @@
 //for long lists, dont show them in the tree, only show the table view, select item there, only show selected item in the tree path and maybe ... for the others, or chrome style arrayview
 //make a function that scans the uploads folder and checks if they all have a referencing entity, if not create an entity
 
-//for rights, can't allow certain roles to make rights or roles
-//each role should somehow have a list if which type of objects they're allowed to create and edit, this can combo well with the tree based rights
-//admins should be able to do everything, creating roles and rights etc
-//how to represent this?
-//put role pointers beneath objdefs (or special obj)
-//put objdef pointers beneath the roles, i kinda like this idea, keeps the objdefs clean
-//this can also be used to shorten the super long combolist for the type dropdown
 
 //optimizations
 //thin tree
@@ -52,6 +39,27 @@
 //custom pages should not have to load the tree
 //role based access still needs flushing out
 
+//wat moet elke rol kunnen
+//super admin = alles
+//admin = mag heel supra zien en zijn definites en rollen rechten onder hem aanpassen
+//supramedewerker = mag alle data in de data sectie zien en aanpassen
+//praktijkeigenaar = mag alles in onder zijn praktijk zien, mag geen rollen rechten aanpassen
+
+//er moet iets komen zodat je je eigen rollen rechten niet kan ophogen
+//idealiter kun je wel je eigen account zien/ maar misschien ook niet
+//users onder een sectie zetten die alleen hogere users kunnen editen is een manier om te voorkomen dat ze aan hun rol zitten
+//maar dan kunnen ze niet zomaar hun account editen om bijvoorbeeld naam, email of wat dan ook aan te passen
+
+//admin
+//beheerder
+//medewerker
+
+//praktijkleider
+//praktijkmedewerker
+
+//you can still navigate and edit to entities you're not allowed to edit or see
+//pre-calculate ancestors,children,and the roles that are allowed to see,update,delete,create on a node
+
 async function login(username,password){
     var res = await fetch('/api/login',{
         method:'POST',
@@ -63,7 +71,9 @@ async function login(username,password){
 
     if(res.succesfull == true){
         localStorage.setItem('sessionid',res.sessionid)
-        var founduser = entities.find(e => e.name == username)// && e.type == findbyname('user')._id
+        
+        //todo this is very risky for name collisions
+        var founduser = await queryOne({name:username})// && e.type == findbyname('user')._id
         localStorage.setItem('currentuserid',founduser._id)
         return true
     }else{
@@ -80,13 +90,6 @@ function isLoggedIn(){
     return localStorage.getItem('currentuserid') != null
 }
 
-function getcurrentuser(){
-    return idmap[parseInt(localStorage.getItem('currentuserid'))] 
-}
-
-function getcurrentRole(){
-    return deref(getcurrentuser()?.role)?.name
-}
 
 function hasReadAccess(nodeid,user){
 
@@ -136,20 +139,19 @@ var treeview = new Treeview();
 
 
 async function refresh(){
-    var data = await query({},{})
-    entities = data
+    // var data = await query({},{})
+    // entities = data
 
-    idmap = mapify(entities,'_id')
-    namemap = mapify(entities,'name')
-    groupparent = groupby(entities,'parent')//quickly find your children
-    typegroups = groupby(entities,'type')
-    objdefmap = mapify(search(entities,{type:namemap['objdef']._id}),'name')
+    // idmap = mapify(entities,'_id')
+    // namemap = mapify(entities,'name')
+    // groupparent = groupby(entities,'parent')//quickly find your children
+    // typegroups = groupby(entities,'type')
+    // objdefmap = mapify(search(entities,{type:namemap['objdef']._id}),'name')
     
 }
 
 async function refreshrerender(){
-    await refresh()
-    drawHeader()
+    // await refresh()
     router.trigger(window.location.pathname)
 }
 
@@ -184,69 +186,49 @@ router.preroutecb = function(route){
 }
 
 refresh().then(() => {
-    drawHeader()
-
-    router.listen(/home/,async (match) => {
+    router.listen('/home',async (match) => {
         appcontainer.innerHTML = ''
         // homepage()
     })
 
-    router.listen(/login/, async (match) => {
+    router.listen('/login', async (match) => {
         startContext(appcontainer)
         appcontainer.innerHTML = ''
         loginPage()
         endContext()
     })
 
-    router.listen(/practice\/(?<id>.*)/, async (match) => {
+    router.listen('/practice/[id]', async (match) => {
         
-        practicePage(parseInt(match.groups.id))
+        practicePage(parseInt(match.id))
     })
 
-    router.listen(/patient\/(?<id>.*)/, async (match) => {
-        patientPage(parseInt(match.groups.id))
+
+
+    router.listen('/patient/[id]', async (match) => {
+        
+        patientPage(parseInt(match.id))
     })
 
-    router.listen(/order\/(?<id>.*)/, async (match) => {
-        orderPage(parseInt(match.groups.id))
+    router.listen('/order/[id]', async (match) => {
+        orderPage(parseInt(match.id))
     })
 
-    router.listen(/practiceselect/, async (match) => {
+    router.listen('/practiceselect', async (match) => {
         practiceselect()
     })
 
-    router.listen(/detail\/(?<id>.*)/,async (match) => {
-        startContext(appcontainer)
-        current = idmap[match.groups.id]
-        appcontainer.innerHTML = ''
-        let containter = cr('div',{style:'display:flex; gap:10px; align-items:flex-start;'})
-            treeview.render()
-            
-            await detailview.load(parseInt(match.groups.id))
-            startContext(containter)
-                detailview.render()
-            endContext()
-        end()
-        endContext()
+    router.listen('/detail/[id]',async (match) => {// main admin page
+        await detailPage(match.id)
     })
 
-    router.listen(/listview\/(?<id>.*)/,async (match) => {
-        await listviewpage(match.groups.id)
+    router.listen('/listview/[id]',async (match) => {
+        await listviewpage(match.id)
     })
 
-    this.router.listen(/./,async () => {
-        startContext(appcontainer)
-        appcontainer.innerHTML = ''
-        let containter = cr('div',{style:'display:flex; align-items:flex-start;'})
-            treeview.render()
-            let listviewcontainer = crend('div','',{style:"background:white; margin:0px 10px; padding:5px;border-radius:3px;"})
-            await listview.load({},{})
-            startContext(listviewcontainer)
-                listview.metaAttributes = getchildren(objdefmap['entity']._id)
-                listview.render()
-            endContext()
-        end()
-        endContext()
+    this.router.listen('/',async () => {
+        var root = await queryOne({name:'superroot'})
+        detailPage(root._id)
     })
 
 
@@ -257,6 +239,10 @@ refresh().then(() => {
 
 function findbyname(name){
     return namemap[name]
+}
+
+function findbycodeid(codeid){
+    return codeidmap[codeid]
 }
 
 function testDialog(){

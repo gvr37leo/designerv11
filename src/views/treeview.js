@@ -1,3 +1,7 @@
+var rightobjects = []
+var relevantrights = []
+var relevantrightsSet = null
+
 class Treeview{
     collapsemap = {}
     treemap = {}
@@ -11,13 +15,20 @@ class Treeview{
     }
 
     render(){
-            
         var roots = entities.filter(e => e.parent == null)
         roots.sort((a,b) => a.order - b.order)
 
+        //get all rights objects
+        var rightobjdef = namemap['right']
+        rightobjects = typegroups[rightobjdef._id]
+        //get all rightobjects that are relevant for this user or his role
+        relevantrights = rightobjects.filter(right => (right.rightrole == currentuser.role || right.user == currentuser._id) && (right.read == true || right.write == true))
+        relevantrightsSet = new Set(relevantrights.map(r => r.parent))
+        
     
         cr('div',{style:'background:#c8c8c8; border-radius:3px; margin-left: 10px; padding:5px;'})
             for(var item of roots){
+                // this.calcAncestors(item,[])
                 let treennode2 = new Treenode(item,this.collapsemap,this.treemap,[])
                 this.treemap[item._id] = treennode2
                 treennode2.render()
@@ -31,6 +42,16 @@ class Treeview{
             }
         }
     }
+
+    // calcAncestors(node,ancestors){
+    //     node.ancestors = ancestors
+    //     var children = getchildren(node._id)
+    //     var newancestors = [...ancestors,node._id]
+    //     for(var child of children){
+    //         this.calcAncestors(child,newancestors.slice())
+    //     }
+    // }
+
 }
 
 class Treenode{
@@ -49,7 +70,7 @@ class Treenode{
         this.collapsemap = collapsemap
         this.treemap = treemap
         this.allowedRoles = allowedRoles.slice()
-        this.allowedRoles.push(...getChildrenOfType(item._id,'right').map(r => deref(r?.role)?.name)) 
+        this.allowedRoles.push(...getChildrenOfType(item._id,'right').map(r => deref(r?.rightrole)?.name)) 
         
     }
 
@@ -94,34 +115,26 @@ class Treenode{
         let item = this.item
         var children = getchildren(item._id)
 
-        //authorization
-        //get current user role
-        //get the rights for this node
-        //go up ancestors until match found
-        //if not then dont render
-
-        //start at the root, at each step keep track of what roles and rights are active/necessary
-        //at each node check if user hat that right
-
-        //getloggedinuser
-        //getrole
         var allowedToSee = false
-        var currentrole = getcurrentRole()
 
-        if(currentrole.allowall == true){
+        if(currentrole.name == 'admin'){
             allowedToSee = true
         }
 
         
-        if(this.allowedRoles.includes(currentrole)){
-            allowedToSee = true
-        }
+
+        var ancestorset = new Set(item.ancestors)
+        ancestorset.add(item._id)
+        var treelevelrights = relevantrightsSet.intersection(ancestorset).size > 0
 
         //also start checking the objdefrights for the role
-        
+        //get the role of the user, check the chilren and see which objdefs are beneath it
+        var allowedobjdefs = getChildrenOfType(currentuser.role,'proxy').map(objdefproxy => deref(objdefproxy.ref))
+        var objlevelrights = allowedobjdefs.map(objdef => objdef._id).includes(item.type)
 
-        //allowedtosee should be true if, the users role has this objtype in it's allowedlist and is in the allowedroles list, thanks to having a ancestor with his role in the rights
-
+        if(treelevelrights && objlevelrights){
+            allowedToSee = true
+        }
 
         children.sort((a,b) => a.order - b.order)
         cr('div')
@@ -186,7 +199,11 @@ class Treenode{
                         },
                         () => {
                             var objdef = deref(item.type)
-    
+                            
+                            if(objdef == null){
+                                return
+                            }
+                            
                             let allowedtypes = []
                             if(objdef.name == 'container'){
                                 allowedtypes.push(deref(item.containertype))
@@ -216,9 +233,10 @@ class Treenode{
                         () => {
                             crend('button','delete').on('click',async () => {
                                 if(confirm(`are you sure you want to delete ${item.name}`)){
-                                    await remove({_id:item._id})
-                                    await refresh()
-                                    router.navigateID(item.parent)
+                                    if(await remove({_id:item._id})){
+                                        await refresh()
+                                        router.navigateID(item.parent)
+                                    }
                                 }
                             })
                         },
@@ -348,7 +366,25 @@ class Treenode{
                                 await refreshrerender()
                             })
                             
-                        }
+                        },
+                        () => {
+                            if(deref(item.type)?.name == 'user'){
+                                crend('button','reset password').on('click',async () => {
+                                    return fetch('/api/resetpassword',{
+                                        method:'POST',
+                                        headers:{
+                                            'Content-Type': 'application/json',
+                                            'sessionid':getSessionId(),
+                                        },
+                                        body:JSON.stringify({userid:item._id})
+                                    }).then(res => res.json()).then((data) => {
+                                        toastr.success('email sent')
+                                    }).catch((reason) => {
+                                        toastr.error('Error', reason)
+                                    })
+                                })
+                            }
+                        },
                     ])
                 end()
             }
