@@ -8,6 +8,7 @@ let path = require("path")
 var express = require('express')
 var app = express()
 var emailsender = require('./emailsender')
+var lastedittimestamp = Date.now()
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -26,7 +27,7 @@ app.use(bodyParser.json());//for json encoded http body's
 app.use(bodyParser.urlencoded({ extended: false }));//for route parameters
 app.use(express.static('./'))
 
-let url = 'mongodb://localhost:27017';
+let url = process.env.MONGO_URL || 'mongodb://localhost:27017';
 // https://cloud.mongodb.com/v2/5f63b72f634422449781b510#/metrics/replicaSet/661f9cbfaae012631f280233/explorer/testdb/firstcollection/find
 let databasename = 'testdb'
 let port = 8000
@@ -45,7 +46,18 @@ async function start(){
         console.log('connected to mongo');
         let db = client.db(databasename)
         let collection = db.collection('firstcollection')
-        let filecollection = db.collection('firstcollection')
+
+        var collectionsize = await collection.count()
+        if(collectionsize == 0){
+            try {
+                const data = fs.readFileSync('./init.json', 'utf8')
+                const jsonData = JSON.parse(data)
+                const result = await collection.insertMany(jsonData)
+                res.send(result)
+            } catch (error) {
+                res.status(500).send({ error: error.message })
+            }
+        }
 
         async function getUserWithSessionId(sessionid){
             return await collection.findOne({sessionid:sessionid})
@@ -153,13 +165,35 @@ async function start(){
         }
 
         async function getdescendants(id){
-            let children = await getchildren(id)
-            for(var child of children){
-                let descs = await getdescendants(child._id)
-                children.push(...descs)
-            }
 
-            return children
+
+            const result = await collection.aggregate([
+                {
+                    $match: { _id: id }
+                },
+                {
+                    $graphLookup: {
+                        from: 'firstcollection',
+                        startWith: '$_id',
+                        connectFromField: '_id',
+                        connectToField: 'parent',
+                        as: 'descendants',
+                        maxDepth: 20 - 1,
+                        depthField: "level",
+                        restrictSearchWithMatch: {}
+                    }
+                }
+            ]).toArray()
+            var data = result[0]
+            return data.descendants
+
+            // let children = await getchildren(id)
+            // for(var child of children){
+            //     let descs = await getdescendants(child._id)
+            //     children.push(...descs)
+            // }
+
+            // return children
         }
 
         async function deref(id){
@@ -203,22 +237,98 @@ async function start(){
             
 
             
+            // //part 1, check role of user, see what objdefs are allowed, check if entity is in there
+            // //part 2 get all rights, filter all the rights with the correct user or role and crudop, for all those rights filter for if their parentid is in the ancestor array
+            // //if length > 0 the success
+            // //if part1 && part2 then success
+            // var objproxys = await getChildrenOfType(role._id,'proxy')
+            // var hasobjaccess = objproxys.map(p => p.ref).includes(entity.type)
+            // let rightobjdef = await collection.findOne({name:'right'})
+            // let rights = await collection.find({type:rightobjdef._id}).toArray()
+            // rights = rights.filter(r => (r.rightrole == user.role || r.user == user._id) && r[crudop] == true)//also check crudop
+            // rights = rights.filter(r => entity.ancestors.includes(r.parent))
+            // var hasrightaccess = rights.length > 0
+            // return hasobjaccess && hasrightaccess
 
-            var objproxys = await getChildrenOfType(role._id,'proxy')
-            var hasobjaccess = objproxys.map(p => p.ref).includes(entity.type)
+            var listtocheck = entity['allowedroles' + crudop]            
+            return listtocheck.includes(user.role) || listtocheck.includes(user._id)
+        }
 
+        async function generateAllowedRoles(entities){
+            //get all roles and their allowedobjdefs
+            //get all rights and check entities ancestors
 
             
-            let rightobjdef = await collection.findOne({name:'right'})
-            let rights = await collection.find({type:rightobjdef._id}).toArray()
-            rights = rights.filter(r => (r.rightrole == user.role || r.user == user._id) && r[crudop] == true)//also check crudop
-            rights = rights.filter(r => entity.ancestors.includes(r.parent))
-            var hasrightaccess = rights.length > 0
-            //part 1, check role of user, see what objdefs are allowed, check if entity is in there
-            //part 2 get all rights, filter all the rights with the correct user or role and crudop, for all those rights filter for if their parentid is in the ancestor array
-            //if length > 0 the success
-            //if part1 && part2 then success
-            return hasobjaccess && hasrightaccess
+            var roles = await collection.find({type:(await getByCodeId('roledef'))._id}).toArray()
+            for(var role of roles){
+                var objproxys = await getChildrenOfType(role._id,'proxy')
+                role.allowedobjdefs = objproxys.map(p => p.ref)
+            }
+            var users = await collection.find({type:(await getByCodeId('userdef'))._id}).toArray()
+            for(var user of users){
+                user.allowedobjdefs = roles.find(r => r._id == user.role).allowedobjdefs
+            }
+
+            var rights = await collection.find({type:(await getByCodeId('rightdef'))._id}).toArray()
+
+            // var crudops = ['read','create','update','delete']
+            for(var entity of entities){
+                if(entity._id == 774560801){
+                    var x = 12
+                }
+                var userswithobjaccess = users.filter(u => u.allowedobjdefs.includes(entity.type))
+                var userswithobjaccessSet = new Set(userswithobjaccess.map(u => u._id))
+
+                var roleswithobjaccess = roles.filter(r => r.allowedobjdefs.includes(entity.type))
+                var roleidswithObjAccessSet = new Set(roleswithobjaccess.map(r => r._id))
+                // var combinedEntityAccessSet = userswithobjaccessSet.union(roleidswithObjAccessSet)
+
+                
+
+                var rightswithaccess = rights.filter(r => entity.ancestors.includes(r.parent))
+
+                var rightswithreadaccess = rightswithaccess.filter(r => r.read == true)
+                var rightswithupdateaccess = rightswithaccess.filter(r => r.update == true)
+                var rightswithdeleteaccess = rightswithaccess.filter(r => r.delete == true)
+                var rightswithcreateaccess = rightswithaccess.filter(r => r.create == true)
+
+                
+
+                entity.allowedrolesread = Array.from(new Set(rightswithreadaccess.map(r => r.rightrole)).intersection(roleidswithObjAccessSet))
+                entity.allowedrolesupdate = Array.from(new Set(rightswithupdateaccess.map(r => r.rightrole)).intersection(roleidswithObjAccessSet))
+                entity.allowedrolesdelete = Array.from(new Set(rightswithdeleteaccess.map(r => r.rightrole)).intersection(roleidswithObjAccessSet))
+                entity.allowedrolescreate = Array.from(new Set(rightswithcreateaccess.map(r => r.rightrole)).intersection(roleidswithObjAccessSet))
+
+                entity.allowedrolesread = entity.allowedrolesread.concat(Array.from(new Set(rightswithreadaccess.map(r => r.user)).intersection(userswithobjaccessSet)))
+                entity.allowedrolesupdate = entity.allowedrolesupdate.concat(Array.from(new Set(rightswithupdateaccess.map(r => r.user)).intersection(userswithobjaccessSet)))
+                entity.allowedrolesdelete = entity.allowedrolesdelete.concat(Array.from(new Set(rightswithdeleteaccess.map(r => r.user)).intersection(userswithobjaccessSet)))
+                entity.allowedrolescreate = entity.allowedrolescreate.concat(Array.from(new Set(rightswithcreateaccess.map(r => r.user)).intersection(userswithobjaccessSet)))
+
+                // entity.allowedrolesread = Array.from(new Set(rightswithreadaccess.flatMap(r => [r.rightrole,r.user])).intersection(combinedEntityAccessSet)
+            }
+
+            //get all users their role and their allowedobjdefs
+            //for an entity
+            //get the relevant rights for that entity
+            //get the closest right with his userid
+
+            var bulkWriteresult = await collection.bulkWrite(entities.map(e => {
+                return {
+                    updateOne:{
+                        filter:{_id:e._id},
+                        update:{$set:e}
+                    }
+                }
+            }))
+            return bulkWriteresult
+        }
+
+        async function getByName(name){
+            return collection.findOne({name:name})
+        }
+
+        async function getByCodeId(codeid){
+            return collection.findOne({codeid:codeid})
         }
 
         async function getChildrenOfType(id,typestr){
@@ -250,19 +360,6 @@ async function start(){
             }
             res.send(current)
         })
-
-
-
-        app.post('/api/read',async function(req,res){
-            // if(await authorization(req,res) == false,'read'){
-            //     return
-            // }
-
-            //read one read descendants?
-            let oasd = await getdescendants(req.body._id)
-            res.send(oasd) 
-
-        })
     
         app.post('/api/query',async function(req, res){
             //find user with sessionid
@@ -286,6 +383,21 @@ async function start(){
                     }
                 }
             }
+
+            //loop over all
+            //generate allowedroles
+            //filter based on that
+            //keep in mind all roles need to see typeinformation
+
+            for(var item of result){
+
+
+                item.allowedrolesdelete = []
+                item.allowedrolesupdate = []
+                item.allowedrolescreate = []
+                item.allowedrolesread = []
+            }
+
             res.send(result)
         })
 
@@ -293,6 +405,10 @@ async function start(){
 
             //todo if the user sends an timestamp of when they last retrieved data, the server can check if anyhting has changed since then
             //if not it can send a message to the client to use the old data
+            
+            if(req.body.lastretrievedtimestamp > lastedittimestamp){
+                res.status(304).send([])//not modified
+            }
 
             var result = {}
             //use session id
@@ -392,41 +508,40 @@ async function start(){
         })
 
 
+        //make create work with 1 entity
+        //have import work with a seperate apicall
         app.post('/api/create',async function(req, res){
-            //todo only checks the first entity
-            let authresult = await authorization(req.body[0].parent,req,'create')
+            var entity = req.body
+            let authresult = await authorization(entity.parent,req,'create')
             if(authresult == false){
-                res.status(403).send({error:'not allowed'})
+                res.status(403).send({error:'not allowed to create new entities here'})
                 return
             }
-
-            for(var entity of req.body){
-                if(entity._id == null){
-                    entity._id = Math.floor(Math.random() * 1000000000)
-                }
-                if(typeof entity.type == 'string'){
-                    var objdef = await collection.findOne({name:'objdef'})
-                    var typeobj = await collection.findOne({name:entity.type,type:objdef._id})
-                    entity.type = typeobj._id ?? null
-                }
-                entity.order = entity.order ?? 1
-                entity.createdAt = Date.now()
-                entity.updatedAt = Date.now()
-                entity.children = []
-                entity.ancestors = []
-                //add yourself to parents children
-                //calc your ancestors
-                var parent = await deref(entity.parent)
-                parent.children.push(entity._id)
-                
-                await updateancestors(parent,entity)
-                await collection.findOneAndUpdate({_id:parent._id},{$set:parent})
+            if(entity._id == null){
+                entity._id = Math.floor(Math.random() * 1000000000)
             }
+            if(typeof entity.type == 'string'){
+                var objdef = await collection.findOne({name:'objdef'})
+                var typeobj = await collection.findOne({name:entity.type,type:objdef._id})
+                entity.type = typeobj._id ?? null
+            }
+            entity.order = entity.order ?? 1
+            entity.createdAt = Date.now()
+            entity.updatedAt = Date.now()
+            entity.children = []
+            entity.ancestors = []
+            //add yourself to parents children
+            //calc your ancestors
+            var parent = await deref(entity.parent)
+            parent.children.push(entity._id)
+            await updateancestors(parent,entity)
+            await collection.findOneAndUpdate({_id:parent._id},{$set:parent})
 
-
-            var result = await collection.insertMany(req.body)
             
-
+            
+            var result = await collection.insertOne(entity)
+            await generateAllowedRoles([entity])//generates only for the new entities
+            await checkForRightUpdates([entity])//generates globally for all if any of the enities are rights
             res.send(result)
         })
     
@@ -436,7 +551,7 @@ async function start(){
 
             //find user with sessionid
             if(await authorization(req.body._id,req,'update') == false){
-                res.status(403).send({error:'not allowed'})
+                res.status(403).send({error:'not allowed to update this entity'})
                 return
             }
             //todo updating the parent field should have extra strict authorization checking because you could move nodes to where you don't have authority
@@ -448,9 +563,17 @@ async function start(){
                 return 'error'
             }
 
+            delete req.body.createdAt
+            delete req.body.updatedAt
+            delete req.body.allowedrolesread
+            delete req.body.allowedrolesupdate
+            delete req.body.allowedrolesdelete
+            delete req.body.allowedrolescreate
             delete req.body.ancestors//ancestors and children are handled by server
             delete req.body.children
             req.body.updatedAt = Date.now()
+
+            
 
             //check if parent was changed
             if(req.body.parent != current.parent){
@@ -469,15 +592,20 @@ async function start(){
                 await updateancestors(newparent,req.body)
                 //update ancestors, of yourself and your children
 
+                //get yourself and all your descendants in a list and bean em through this function to update the allowedroles
+                var descendants = await getdescendants(current._id)
+                await generateAllowedRoles([current,...descendants])
+                //when a right/objdef is moved/deleted/created/updated, run a full tree recalculation
             }
-
             var result = await collection.findOneAndUpdate({_id:req.body._id}, {$set:req.body})
+            await checkForRightUpdates([current])
+
             res.send(result)
         })
     
         app.delete('/api/delete',async function(req, res){
             if(await authorization(req.body._id,req,'delete') == false){
-                res.status(403).send({error:'not allowed'})
+                res.status(403).send({error:'not allowed to delete this entity'})
                 return
             }
 
@@ -495,7 +623,7 @@ async function start(){
             var result2 = await collection.deleteMany({_id:{$in:descendants.map(d => d._id)}})
             var result = await collection.findOneAndDelete({_id:req.body._id})
 
-            
+            await checkForRightUpdates([entity])
 
             res.send({message:"success",result,result2})
         })
@@ -549,6 +677,19 @@ async function start(){
             res.send({message: "success"});
         })
 
+        app.post('/api/import',async function(req,res){
+            //doesnt go well with a cold start
+            var sessionid = parseInt(req.get('sessionid'))
+            var user = await getUserWithSessionId(sessionid)
+            if(user.role != 'admin'){
+                res.send()
+                return
+            }
+            
+            var insertresult = await collection.insertMany(req.data)
+            res.send(insertresult)
+        })
+
         async function updateancestors(parent,entity){
             entity.ancestors = [...parent.ancestors,parent._id]
             await collection.findOneAndUpdate({_id:entity._id},{$set:entity})
@@ -567,8 +708,20 @@ async function start(){
         //an items allowedroles should be updated everytime it is moved or when it's created
         //but when a right is changed,moved,created or deleted or when a role or it's allowed objdefs pointers are created or changed
         //then every entity needs to get updated
-        function updateAllowedRoles(startentity){
-            //loop over
+        async function checkForRightUpdates(entities){
+            var needsupdate = false
+            var rightdef = await getByCodeId('rightdef')
+            for(var entity of entities){
+                if(entity.type == rightdef._id){//todo also need to check for objdef pointers below roles 
+                    needsupdate = true
+                    break;
+                }
+            }
+
+            if(needsupdate){
+                let all = await collection.find({}).toArray()//this could be a stream maybe
+                await generateAllowedRoles(all)
+            }
         }
 
     } catch (error) {

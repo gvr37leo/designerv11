@@ -1,0 +1,3617 @@
+[
+  {
+    "_id": 34338359,
+    "name": "entity",
+    "parent": 37880666,
+    "type": 95883802,
+    "extends": null,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "icon": "package",
+    "iconcolor": "#000000",
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666
+    ],
+    "children": [
+      95271786,
+      74972031,
+      76033295,
+      73614581,
+      32888043,
+      1839318,
+      55860318,
+      168902690,
+      519269557
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 95271786,
+    "name": "parent",
+    "parent": 34338359,
+    "type": 68130130,
+    "extends": 34338359,
+    "datatype": 41936734,
+    "pointertype": 34338359,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": -7,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      34338359
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 76470349,
+    "name": "extends",
+    "parent": 95883802,
+    "type": 68130130,
+    "extends": 34338359,
+    "datatype": 41936734,
+    "pointertype": 95883802,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      95883802
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 74972031,
+    "name": "name",
+    "parent": 34338359,
+    "type": 68130130,
+    "extends": 34338359,
+    "datatype": 75908361,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": -6,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      34338359
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 68130130,
+    "name": "attribute",
+    "parent": 37880666,
+    "type": 95883802,
+    "extends": 34338359,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "icon": "plus",
+    "iconcolor": "#f51800",
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666
+    ],
+    "children": [
+      27727808
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 33264638,
+    "name": "appdef",
+    "parent": 37880666,
+    "type": 95883802,
+    "extends": 34338359,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "icon": "tree",
+    "iconcolor": "#03c200",
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 592185926,
+    "name": "users",
+    "parent": 113868558,
+    "type": 303978464,
+    "createdAt": 1770723910966,
+    "updatedAt": 1773414254074,
+    "order": 1,
+    "containertype": 84034547,
+    "ancestors": [
+      332677061,
+      113868558
+    ],
+    "children": [
+      101324600,
+      725652960
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 76033295,
+    "name": "updatedAt",
+    "parent": 34338359,
+    "type": 68130130,
+    "extends": 34338359,
+    "datatype": 13543148,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": -5,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      34338359
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 41936734,
+    "name": "pointer",
+    "parent": 236162914,
+    "type": 47261107,
+    "extends": 34338359,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "ancestors": [
+      332677061,
+      98569176,
+      236162914
+    ],
+    "children": [
+      14159843,
+      444698241
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 84034547,
+    "name": "user",
+    "parent": 37880666,
+    "type": 95883802,
+    "extends": 34338359,
+    "createdAt": 1770723910966,
+    "updatedAt": 1774622014829,
+    "order": 1,
+    "icon": "user",
+    "iconcolor": "#000000",
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666
+    ],
+    "children": [
+      89300114,
+      58677240,
+      575629258,
+      812230589
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": [],
+    "codeid": "userdef"
+  },
+  {
+    "_id": 89300114,
+    "name": "sessionid",
+    "parent": 84034547,
+    "type": 68130130,
+    "extends": 34338359,
+    "datatype": 27080254,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      84034547
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 14159843,
+    "name": "pointertype",
+    "parent": 41936734,
+    "type": 68130130,
+    "extends": 34338359,
+    "datatype": 41936734,
+    "pointertype": 95883802,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "ancestors": [
+      332677061,
+      98569176,
+      236162914,
+      41936734
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 73614581,
+    "name": "type",
+    "parent": 34338359,
+    "type": 68130130,
+    "extends": 34338359,
+    "datatype": 41936734,
+    "pointertype": 95883802,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": -4,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      34338359
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 32888043,
+    "name": "createdAt",
+    "parent": 34338359,
+    "type": 68130130,
+    "extends": 34338359,
+    "datatype": 13543148,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": -3,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      34338359
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 98569176,
+    "name": "appdefinition",
+    "parent": 332677061,
+    "type": 33264638,
+    "extends": 34338359,
+    "typedef": null,
+    "createdAt": 1770723910966,
+    "updatedAt": 1773414362917,
+    "order": 1,
+    "ancestors": [
+      332677061
+    ],
+    "children": [
+      37880666,
+      236162914,
+      375177495
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 75908361,
+    "name": "text",
+    "parent": 236162914,
+    "type": 47261107,
+    "extends": 34338359,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "ancestors": [
+      332677061,
+      98569176,
+      236162914
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 13543148,
+    "name": "date",
+    "parent": 236162914,
+    "type": 47261107,
+    "extends": 34338359,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "ancestors": [
+      332677061,
+      98569176,
+      236162914
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 101324600,
+    "name": "paul",
+    "parent": 592185926,
+    "type": 84034547,
+    "createdAt": 1770723910966,
+    "updatedAt": 1773412027690,
+    "order": 1,
+    "role": 642032032,
+    "sessionid": 745463575,
+    "password": "abc",
+    "email": "gvr37.p.l.boon@gmail.com",
+    "ancestors": [
+      332677061,
+      113868558,
+      592185926
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 25656069,
+    "name": "id",
+    "parent": 236162914,
+    "type": 47261107,
+    "extends": 34338359,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "ancestors": [
+      332677061,
+      98569176,
+      236162914
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 27080254,
+    "name": "number",
+    "parent": 236162914,
+    "type": 47261107,
+    "extends": 34338359,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "ancestors": [
+      332677061,
+      98569176,
+      236162914
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 58677240,
+    "name": "role",
+    "parent": 84034547,
+    "type": 68130130,
+    "extends": 34338359,
+    "datatype": 41936734,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "pointertype": 171648616,
+    "tree": null,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      84034547
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 1839318,
+    "name": "_id",
+    "parent": 34338359,
+    "type": 68130130,
+    "extends": 34338359,
+    "datatype": 25656069,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": -8,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      34338359
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 55860318,
+    "name": "order",
+    "parent": 34338359,
+    "type": 68130130,
+    "extends": 34338359,
+    "datatype": 27080254,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": -2,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      34338359
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 47261107,
+    "name": "datatypeobjdef",
+    "parent": 37880666,
+    "type": 95883802,
+    "extends": 34338359,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "icon": "plus",
+    "iconcolor": "#000000",
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666
+    ],
+    "children": [
+      491021061
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 725652960,
+    "name": "bob",
+    "parent": 592185926,
+    "type": 84034547,
+    "createdAt": 1770723910966,
+    "updatedAt": 1772198335372,
+    "order": 1,
+    "role": 558707662,
+    "sessionid": 995570011,
+    "password": "abc",
+    "ancestors": [
+      332677061,
+      113868558,
+      592185926
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 95883802,
+    "name": "objdef",
+    "parent": 37880666,
+    "type": 95883802,
+    "extends": 34338359,
+    "createdAt": 1770723910966,
+    "updatedAt": 1774018551771,
+    "order": 1,
+    "icon": "cube",
+    "iconcolor": "#000000",
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666
+    ],
+    "children": [
+      76470349,
+      310754357,
+      238311191,
+      453892953
+    ],
+    "codeid": "objdef",
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 27727808,
+    "name": "datatype",
+    "parent": 68130130,
+    "type": 68130130,
+    "extends": 34338359,
+    "datatype": 41936734,
+    "pointertype": 47261107,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      68130130
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 88292001,
+    "name": "boolean",
+    "parent": 236162914,
+    "type": 47261107,
+    "extends": 34338359,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "ancestors": [
+      332677061,
+      98569176,
+      236162914
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 955455650,
+    "name": "right",
+    "parent": 37880666,
+    "type": 95883802,
+    "createdAt": 1770723910966,
+    "updatedAt": 1774608241252,
+    "order": 1,
+    "extends": 34338359,
+    "icon": "key",
+    "iconcolor": "#ff0000",
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666
+    ],
+    "children": [
+      878245769,
+      326512234,
+      746591798,
+      108594996,
+      571367103,
+      725057163,
+      420239359
+    ],
+    "codeid": "rightdef",
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 878245769,
+    "name": "read",
+    "parent": 955455650,
+    "type": 68130130,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "datatype": 88292001,
+    "pointertype": null,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      955455650
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 326512234,
+    "name": "user",
+    "parent": 955455650,
+    "type": 68130130,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 4,
+    "datatype": 41936734,
+    "pointertype": 84034547,
+    "tree": null,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      955455650
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 860782266,
+    "name": "json",
+    "parent": 236162914,
+    "type": 47261107,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "ancestors": [
+      332677061,
+      98569176,
+      236162914
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 168902690,
+    "name": "changeHistory",
+    "parent": 34338359,
+    "type": 68130130,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": -1,
+    "datatype": 860782266,
+    "pointertype": null,
+    "changeHistory": {
+      "data": [
+        "a",
+        "b",
+        "c"
+      ]
+    },
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      34338359
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 181100794,
+    "name": "proxy",
+    "parent": 37880666,
+    "type": 95883802,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "extends": 34338359,
+    "icon": "asterisk",
+    "iconcolor": "#000000",
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666
+    ],
+    "children": [
+      158398381
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 158398381,
+    "name": "ref",
+    "parent": 181100794,
+    "type": 68130130,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "datatype": 41936734,
+    "pointertype": 34338359,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      181100794
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 37880666,
+    "name": "objdefs",
+    "parent": 98569176,
+    "type": 303978464,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "containertype": 95883802,
+    "ancestors": [
+      332677061,
+      98569176
+    ],
+    "children": [
+      34338359,
+      68130130,
+      33264638,
+      84034547,
+      47261107,
+      95883802,
+      955455650,
+      181100794,
+      171648616,
+      240420793,
+      303978464
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 236162914,
+    "name": "datatypes",
+    "parent": 98569176,
+    "type": 303978464,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "containertype": 47261107,
+    "ancestors": [
+      332677061,
+      98569176
+    ],
+    "children": [
+      41936734,
+      75908361,
+      13543148,
+      25656069,
+      27080254,
+      88292001,
+      860782266,
+      675470185,
+      414164849,
+      821407392,
+      272379906,
+      467266700,
+      79297142
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 746591798,
+    "name": "rightrole",
+    "parent": 955455650,
+    "type": 68130130,
+    "createdAt": 1770723910966,
+    "updatedAt": 1773520063359,
+    "order": 5,
+    "datatype": 41936734,
+    "pointertype": 171648616,
+    "tree": null,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      955455650
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 375177495,
+    "name": "roles",
+    "parent": 98569176,
+    "type": 303978464,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "containertype": 171648616,
+    "ancestors": [
+      332677061,
+      98569176
+    ],
+    "children": [
+      642032032
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 171648616,
+    "name": "role",
+    "parent": 37880666,
+    "type": 95883802,
+    "createdAt": 1770723910966,
+    "updatedAt": 1773752151941,
+    "order": 1,
+    "extends": 34338359,
+    "icon": "key",
+    "iconcolor": "#000000",
+    "codeid": "roledef",
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 444698241,
+    "name": "tree",
+    "parent": 41936734,
+    "type": 68130130,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "pointertype": 34338359,
+    "datatype": 41936734,
+    "tree": 98569176,
+    "ancestors": [
+      332677061,
+      98569176,
+      236162914,
+      41936734
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 108594996,
+    "name": "excludeself",
+    "parent": 955455650,
+    "type": 68130130,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 3,
+    "datatype": 88292001,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      955455650
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 642032032,
+    "name": "admin",
+    "parent": 375177495,
+    "type": 171648616,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "ancestors": [
+      332677061,
+      98569176,
+      375177495
+    ],
+    "children": [
+      558707662
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 558707662,
+    "name": "beheerder",
+    "parent": 642032032,
+    "type": 171648616,
+    "createdAt": 1770723910966,
+    "updatedAt": 1773753480958,
+    "order": 1,
+    "superior": 642032032,
+    "ancestors": [
+      332677061,
+      98569176,
+      375177495,
+      642032032
+    ],
+    "children": [
+      901125646,
+      906282649,
+      238614892,
+      357409781,
+      120953258,
+      878364520,
+      649689,
+      512936042,
+      183067641,
+      272830378,
+      213538995,
+      65494464,
+      281116083
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 901125646,
+    "name": "editor",
+    "parent": 558707662,
+    "type": 171648616,
+    "createdAt": 1770723910966,
+    "updatedAt": 1773753701125,
+    "order": 1,
+    "superior": 558707662,
+    "ancestors": [
+      332677061,
+      98569176,
+      375177495,
+      642032032,
+      558707662
+    ],
+    "children": [
+      933918228
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 675470185,
+    "name": "file",
+    "parent": 236162914,
+    "type": 47261107,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061,
+      98569176,
+      236162914
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 414164849,
+    "name": "array",
+    "parent": 236162914,
+    "type": 47261107,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "datatype": null,
+    "ancestors": [
+      332677061,
+      98569176,
+      236162914
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 310754357,
+    "name": "icon",
+    "parent": 95883802,
+    "type": 68130130,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "datatype": 467266700,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      95883802
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 238311191,
+    "name": "iconcolor",
+    "parent": 95883802,
+    "type": 68130130,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "datatype": 821407392,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      95883802
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 821407392,
+    "name": "color",
+    "parent": 236162914,
+    "type": 47261107,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061,
+      98569176,
+      236162914
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 240420793,
+    "name": "fileobjdef",
+    "parent": 37880666,
+    "type": 95883802,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "extends": 34338359,
+    "icon": "empty-page",
+    "iconcolor": "#000000",
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666
+    ],
+    "children": [
+      442886533
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 704406697,
+    "name": "files",
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "type": 303978464,
+    "containertype": 240420793,
+    "order": 6,
+    "parent": 332677061,
+    "ancestors": [
+      332677061
+    ],
+    "children": [
+      286308468
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 442886533,
+    "name": "fileselfatr",
+    "parent": 240420793,
+    "type": 68130130,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "datatype": 272379906,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      240420793
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 272379906,
+    "name": "fileself",
+    "parent": 236162914,
+    "type": 47261107,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061,
+      98569176,
+      236162914
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 286308468,
+    "parent": 704406697,
+    "name": "image0.jpg",
+    "nameondisk": "286308468.jpg",
+    "mimetype": "image/jpeg",
+    "size": 555067,
+    "type": 240420793,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061,
+      704406697
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 303978464,
+    "name": "container",
+    "parent": 37880666,
+    "type": 95883802,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "extends": 34338359,
+    "icon": "list",
+    "iconcolor": "#000000",
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666
+    ],
+    "children": [
+      189414302
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 189414302,
+    "name": "containertype",
+    "parent": 303978464,
+    "type": 68130130,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "datatype": 41936734,
+    "pointertype": 95883802,
+    "tree": 37880666,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      303978464
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 467266700,
+    "name": "icon",
+    "parent": 236162914,
+    "type": 47261107,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061,
+      98569176,
+      236162914
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 453892953,
+    "name": "allowedtypes",
+    "parent": 95883802,
+    "type": 303978464,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "containertype": 68130130,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      95883802
+    ],
+    "children": [
+      430942770
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 430942770,
+    "name": "proxyattribute",
+    "parent": 453892953,
+    "type": 181100794,
+    "ref": 68130130,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      95883802,
+      453892953
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 79297142,
+    "name": "multiplechoice",
+    "parent": 236162914,
+    "type": 47261107,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061,
+      98569176,
+      236162914
+    ],
+    "children": [
+      175220349
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 491021061,
+    "name": "allowedtypes",
+    "parent": 47261107,
+    "type": 303978464,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      47261107
+    ],
+    "children": [
+      508618549
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 508618549,
+    "name": "proxyattribute",
+    "parent": 491021061,
+    "type": 181100794,
+    "ref": 68130130,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      47261107,
+      491021061
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 175220349,
+    "name": "options",
+    "parent": 79297142,
+    "type": 68130130,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "datatype": 414164849,
+    "ancestors": [
+      332677061,
+      98569176,
+      236162914,
+      79297142
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 113868558,
+    "name": "supradef",
+    "parent": 332677061,
+    "type": 33264638,
+    "order": 4,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061
+    ],
+    "children": [
+      592185926,
+      455008259,
+      663411896
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 701410116,
+    "name": "supra",
+    "parent": 332677061,
+    "type": 33264638,
+    "order": 5,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061
+    ],
+    "children": [
+      774560801,
+      352650108,
+      296202879,
+      615618588
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 455008259,
+    "name": "objdefs",
+    "parent": 113868558,
+    "type": 303978464,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "order": 1,
+    "containertype": 95883802,
+    "ancestors": [
+      332677061,
+      113868558
+    ],
+    "children": [
+      730166731,
+      860885032,
+      952490518,
+      649500434,
+      193261312,
+      378452893,
+      593967770,
+      132218155
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 730166731,
+    "name": "praktijk",
+    "parent": 455008259,
+    "type": 95883802,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "extends": 34338359,
+    "icon": "hospital",
+    "iconcolor": "#000000",
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259
+    ],
+    "children": [
+      81603563
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 860885032,
+    "name": "patient",
+    "parent": 455008259,
+    "type": 95883802,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "extends": 34338359,
+    "icon": "user",
+    "iconcolor": "#000000",
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259
+    ],
+    "children": [
+      722339780
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 952490518,
+    "name": "behandelplan",
+    "parent": 455008259,
+    "type": 95883802,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "extends": 34338359,
+    "icon": "archive",
+    "iconcolor": "#000000",
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259
+    ],
+    "children": [
+      810505768,
+      138532938,
+      981354584
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 649500434,
+    "name": "product",
+    "parent": 455008259,
+    "type": 95883802,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "extends": 34338359,
+    "icon": "app-window",
+    "iconcolor": "#000000",
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259
+    ],
+    "children": [
+      845178349
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 193261312,
+    "name": "subproduct",
+    "parent": 455008259,
+    "type": 95883802,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "extends": 34338359,
+    "icon": "asana",
+    "iconcolor": "#000000",
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 378452893,
+    "name": "question",
+    "parent": 455008259,
+    "type": 95883802,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "extends": 34338359,
+    "icon": "question-mark",
+    "iconcolor": "#000000",
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259
+    ],
+    "children": [
+      902405210,
+      27423830
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 593967770,
+    "name": "order",
+    "parent": 455008259,
+    "type": 95883802,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "extends": 34338359,
+    "icon": "apple",
+    "iconcolor": "#000000",
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259
+    ],
+    "children": [
+      271510512,
+      191528485
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 756541994,
+    "name": "Praktijk volharennq",
+    "parent": 774560801,
+    "type": 730166731,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1774008407038,
+    "ancestors": [
+      332677061,
+      701410116,
+      774560801
+    ],
+    "children": [
+      206576339,
+      521587294,
+      410653905,
+      138497175,
+      788033308,
+      910764696,
+      427468058
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 81603563,
+    "name": "allowedtypes",
+    "parent": 730166731,
+    "type": 303978464,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259,
+      730166731
+    ],
+    "children": [
+      805421961
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 805421961,
+    "name": "proxypatient",
+    "parent": 81603563,
+    "type": 181100794,
+    "ref": 860885032,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259,
+      730166731,
+      81603563
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 206576339,
+    "name": "pietere",
+    "parent": 756541994,
+    "type": 860885032,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1774610789279,
+    "ancestors": [
+      332677061,
+      701410116,
+      774560801,
+      756541994
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": [],
+    "codeid": ""
+  },
+  {
+    "_id": 722339780,
+    "name": "allowedtypes",
+    "parent": 860885032,
+    "type": 303978464,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259,
+      860885032
+    ],
+    "children": [
+      622880766
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 810505768,
+    "name": "allowedtypes",
+    "parent": 952490518,
+    "type": 303978464,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259,
+      952490518
+    ],
+    "children": [
+      709697738
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 709697738,
+    "name": "proxyorder",
+    "parent": 810505768,
+    "type": 181100794,
+    "ref": 593967770,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259,
+      952490518,
+      810505768
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 138532938,
+    "name": "product boven",
+    "parent": 952490518,
+    "type": 68130130,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "datatype": 41936734,
+    "pointertype": 649500434,
+    "tree": null,
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259,
+      952490518
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 271510512,
+    "name": "product",
+    "parent": 593967770,
+    "type": 68130130,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770980027888,
+    "datatype": 41936734,
+    "pointertype": 649500434,
+    "tree": null,
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259,
+      593967770
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 132218155,
+    "name": "answer",
+    "parent": 455008259,
+    "type": 95883802,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770991337759,
+    "extends": 34338359,
+    "icon": "angle-tool",
+    "iconcolor": "#000000",
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259
+    ],
+    "children": [
+      449009429,
+      786791389
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 449009429,
+    "name": "value",
+    "parent": 132218155,
+    "type": 68130130,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "datatype": 75908361,
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259,
+      132218155
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 191528485,
+    "name": "allowedtypes",
+    "parent": 593967770,
+    "type": 303978464,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259,
+      593967770
+    ],
+    "children": [
+      100986641
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 100986641,
+    "name": "proxysubproduct_answer",
+    "parent": 191528485,
+    "type": 181100794,
+    "ref": 132218155,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259,
+      593967770,
+      191528485
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 774560801,
+    "name": "praktijken",
+    "parent": 701410116,
+    "type": 303978464,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "containertype": 730166731,
+    "ancestors": [
+      332677061,
+      701410116
+    ],
+    "children": [
+      756541994,
+      670211343
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 352650108,
+    "name": "producten",
+    "parent": 701410116,
+    "type": 303978464,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "containertype": 649500434,
+    "ancestors": [
+      332677061,
+      701410116
+    ],
+    "children": [
+      39222565,
+      954796210
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 296202879,
+    "name": "vragen",
+    "parent": 701410116,
+    "type": 303978464,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "containertype": 378452893,
+    "ancestors": [
+      332677061,
+      701410116
+    ],
+    "children": [
+      56703805,
+      687413184,
+      933488287,
+      941484799,
+      64093000,
+      103451011,
+      614090632,
+      213942014,
+      995766440,
+      332061721,
+      576828029,
+      869329702,
+      875864586,
+      466306124
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 981354584,
+    "name": "product onder",
+    "parent": 952490518,
+    "type": 68130130,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "datatype": 41936734,
+    "pointertype": 649500434,
+    "tree": null,
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259,
+      952490518
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 39222565,
+    "name": "Kroon",
+    "parent": 352650108,
+    "type": 649500434,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1771589252849,
+    "ancestors": [
+      332677061,
+      701410116,
+      352650108
+    ],
+    "children": [
+      120440611,
+      41128842
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 56703805,
+    "name": "gebitskleur",
+    "parent": 296202879,
+    "type": 378452893,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1772008980134,
+    "options": [
+      "geel",
+      "groen",
+      "rood",
+      "paars"
+    ],
+    "questiontype": "multiplechoice",
+    "ancestors": [
+      332677061,
+      701410116,
+      296202879
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 845178349,
+    "name": "allowedtypes",
+    "parent": 649500434,
+    "type": 303978464,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259,
+      649500434
+    ],
+    "children": [
+      234444369
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 234444369,
+    "name": "proxysubproduct",
+    "parent": 845178349,
+    "type": 181100794,
+    "ref": 193261312,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259,
+      649500434,
+      845178349
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 902405210,
+    "name": "options",
+    "parent": 378452893,
+    "type": 68130130,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "datatype": 414164849,
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259,
+      378452893
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 27423830,
+    "name": "questiontype",
+    "parent": 378452893,
+    "type": 68130130,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "datatype": 79297142,
+    "options": [
+      "text",
+      "number",
+      "multiplechoice",
+      "bool"
+    ],
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259,
+      378452893
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 120440611,
+    "name": "proxygebitskleur",
+    "parent": 39222565,
+    "type": 181100794,
+    "ref": 56703805,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770991193309,
+    "ancestors": [
+      332677061,
+      701410116,
+      352650108,
+      39222565
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 687413184,
+    "name": "avamax",
+    "parent": 296202879,
+    "type": 378452893,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770993259428,
+    "options": [
+      ""
+    ],
+    "questiontype": "bool",
+    "ancestors": [
+      332677061,
+      701410116,
+      296202879
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 41128842,
+    "name": "proxyavamax",
+    "parent": 39222565,
+    "type": 181100794,
+    "ref": 687413184,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770991183724,
+    "ancestors": [
+      332677061,
+      701410116,
+      352650108,
+      39222565
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 332677061,
+    "name": "superroot",
+    "parent": null,
+    "type": 34338359,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [],
+    "children": [
+      98569176,
+      704406697,
+      113868558,
+      701410116,
+      700150988
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 700150988,
+    "name": "the archive",
+    "parent": 332677061,
+    "type": 34338359,
+    "order": 6.5,
+    "createdAt": 1770723910966,
+    "updatedAt": 1770723910966,
+    "ancestors": [
+      332677061
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 663411896,
+    "name": "beheerderrights",
+    "parent": 113868558,
+    "type": 955455650,
+    "order": 1,
+    "createdAt": 1770723910966,
+    "updatedAt": 1774610885063,
+    "create": true,
+    "delete": true,
+    "excludeself": false,
+    "read": true,
+    "role": null,
+    "update": true,
+    "user": null,
+    "write": false,
+    "rightrole": 558707662,
+    "ancestors": [
+      332677061,
+      113868558
+    ],
+    "children": [],
+    "codeid": "",
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 575629258,
+    "name": "password",
+    "parent": 84034547,
+    "type": 68130130,
+    "order": 1,
+    "createdAt": 1770723942528,
+    "updatedAt": 1770723960451,
+    "datatype": 75908361,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      84034547
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 622880766,
+    "name": "proxyorder",
+    "parent": 722339780,
+    "type": 181100794,
+    "ref": 593967770,
+    "order": 1,
+    "createdAt": 1770983685745,
+    "updatedAt": 1770983690682,
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259,
+      860885032,
+      722339780
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 954796210,
+    "name": "Steg",
+    "parent": 352650108,
+    "type": 649500434,
+    "order": 1,
+    "createdAt": 1770983712336,
+    "updatedAt": 1771589237102,
+    "ancestors": [
+      332677061,
+      701410116,
+      352650108
+    ],
+    "children": [
+      832816893,
+      417067708
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 933488287,
+    "name": "schroeven",
+    "parent": 296202879,
+    "type": 378452893,
+    "order": 1,
+    "createdAt": 1770990486708,
+    "updatedAt": 1771585244965,
+    "options": [
+      ""
+    ],
+    "questiontype": "bool",
+    "ancestors": [
+      332677061,
+      701410116,
+      296202879
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 941484799,
+    "name": "ruiters",
+    "parent": 296202879,
+    "type": 378452893,
+    "order": 1,
+    "createdAt": 1770990488785,
+    "updatedAt": 1771585250679,
+    "options": [
+      ""
+    ],
+    "questiontype": "bool",
+    "ancestors": [
+      332677061,
+      701410116,
+      296202879
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 64093000,
+    "name": "Sealing screws",
+    "parent": 296202879,
+    "type": 378452893,
+    "order": 1,
+    "createdAt": 1770990490747,
+    "updatedAt": 1770991812880,
+    "options": [
+      ""
+    ],
+    "questiontype": "",
+    "ancestors": [
+      332677061,
+      701410116,
+      296202879
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 103451011,
+    "name": "Sealing screwdriver",
+    "parent": 296202879,
+    "type": 378452893,
+    "order": 1,
+    "createdAt": 1770990492225,
+    "updatedAt": 1770991835882,
+    "options": [
+      ""
+    ],
+    "questiontype": "",
+    "ancestors": [
+      332677061,
+      701410116,
+      296202879
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 614090632,
+    "name": "Supra Ti-frame",
+    "parent": 296202879,
+    "type": 378452893,
+    "order": 1,
+    "createdAt": 1770990493985,
+    "updatedAt": 1770991856196,
+    "options": [
+      ""
+    ],
+    "questiontype": "",
+    "ancestors": [
+      332677061,
+      701410116,
+      296202879
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 213942014,
+    "name": "AvaDent base plate",
+    "parent": 296202879,
+    "type": 378452893,
+    "order": 1,
+    "createdAt": 1770990495585,
+    "updatedAt": 1770991874148,
+    "options": [
+      ""
+    ],
+    "questiontype": "",
+    "ancestors": [
+      332677061,
+      701410116,
+      296202879
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 995766440,
+    "name": "Stegconstructie",
+    "parent": 296202879,
+    "type": 378452893,
+    "order": 1,
+    "createdAt": 1770991889435,
+    "updatedAt": 1770991942540,
+    "options": [
+      ""
+    ],
+    "questiontype": "",
+    "ancestors": [
+      332677061,
+      701410116,
+      296202879
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 332061721,
+    "name": "comment",
+    "parent": 296202879,
+    "type": 378452893,
+    "order": 1,
+    "createdAt": 1770991891313,
+    "updatedAt": 1771585263757,
+    "options": [
+      ""
+    ],
+    "questiontype": "text",
+    "ancestors": [
+      332677061,
+      701410116,
+      296202879
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 576828029,
+    "name": "new question",
+    "parent": 296202879,
+    "type": 378452893,
+    "order": 1,
+    "createdAt": 1770991893145,
+    "updatedAt": 1770991893145,
+    "ancestors": [
+      332677061,
+      701410116,
+      296202879
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 869329702,
+    "name": "new question",
+    "parent": 296202879,
+    "type": 378452893,
+    "order": 1,
+    "createdAt": 1770991895090,
+    "updatedAt": 1770991895090,
+    "ancestors": [
+      332677061,
+      701410116,
+      296202879
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 875864586,
+    "name": "new question",
+    "parent": 296202879,
+    "type": 378452893,
+    "order": 1,
+    "createdAt": 1770991896970,
+    "updatedAt": 1770991896970,
+    "ancestors": [
+      332677061,
+      701410116,
+      296202879
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 466306124,
+    "name": "new question",
+    "parent": 296202879,
+    "type": 378452893,
+    "order": 1,
+    "createdAt": 1770991898777,
+    "updatedAt": 1770991898777,
+    "ancestors": [
+      332677061,
+      701410116,
+      296202879
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 670211343,
+    "name": "Praktijk borus",
+    "parent": 774560801,
+    "type": 730166731,
+    "order": 1,
+    "createdAt": 1770995444043,
+    "updatedAt": 1771574969000,
+    "ancestors": [
+      332677061,
+      701410116,
+      774560801
+    ],
+    "children": [
+      11206678,
+      582650842,
+      975028139
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 521587294,
+    "name": "Klaas",
+    "parent": 756541994,
+    "type": 860885032,
+    "order": 1,
+    "createdAt": 1770997224700,
+    "updatedAt": 1773940415150,
+    "ancestors": [
+      332677061,
+      701410116,
+      774560801,
+      756541994
+    ],
+    "children": [
+      122716956,
+      237891284,
+      940627136,
+      644604877,
+      544087753
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 786791389,
+    "name": "answerto",
+    "parent": 132218155,
+    "type": 68130130,
+    "order": 1,
+    "createdAt": 1771424030843,
+    "updatedAt": 1771424096285,
+    "datatype": 41936734,
+    "pointertype": 181100794,
+    "tree": null,
+    "ancestors": [
+      332677061,
+      113868558,
+      455008259,
+      132218155
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 410653905,
+    "name": "Ariksen",
+    "parent": 756541994,
+    "type": 860885032,
+    "order": 1,
+    "createdAt": 1771574860402,
+    "updatedAt": 1771577017122,
+    "ancestors": [
+      332677061,
+      701410116,
+      774560801,
+      756541994
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 138497175,
+    "name": "Barthellemew",
+    "parent": 756541994,
+    "type": 860885032,
+    "order": 1,
+    "createdAt": 1771574871240,
+    "updatedAt": 1771577012880,
+    "ancestors": [
+      332677061,
+      701410116,
+      774560801,
+      756541994
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 788033308,
+    "name": "Henk",
+    "parent": 756541994,
+    "type": 860885032,
+    "order": 1,
+    "createdAt": 1771574874111,
+    "updatedAt": 1771574907857,
+    "ancestors": [
+      332677061,
+      701410116,
+      774560801,
+      756541994
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 910764696,
+    "name": "Jorsen",
+    "parent": 756541994,
+    "type": 860885032,
+    "order": 1,
+    "createdAt": 1771574875895,
+    "updatedAt": 1771574913960,
+    "ancestors": [
+      332677061,
+      701410116,
+      774560801,
+      756541994
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 975028139,
+    "name": "Boko",
+    "parent": 670211343,
+    "type": 860885032,
+    "order": 1,
+    "createdAt": 1771574877783,
+    "updatedAt": 1774608280913,
+    "ancestors": [
+      332677061,
+      701410116,
+      774560801,
+      670211343
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 582650842,
+    "name": "Fritz",
+    "parent": 670211343,
+    "type": 860885032,
+    "order": 1,
+    "createdAt": 1771574880807,
+    "updatedAt": 1774607445181,
+    "ancestors": [
+      332677061,
+      701410116,
+      774560801,
+      670211343
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 11206678,
+    "name": "Erik",
+    "parent": 670211343,
+    "type": 860885032,
+    "order": 1,
+    "createdAt": 1771576977728,
+    "updatedAt": 1771576988370,
+    "ancestors": [
+      332677061,
+      701410116,
+      774560801,
+      670211343
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 427468058,
+    "name": "Bart",
+    "parent": 756541994,
+    "type": 860885032,
+    "order": 1,
+    "createdAt": 1771576980407,
+    "updatedAt": 1774610604815,
+    "ancestors": [
+      332677061,
+      701410116,
+      774560801,
+      756541994
+    ],
+    "children": [
+      793360321
+    ],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 122716956,
+    "name": "order 1",
+    "parent": 521587294,
+    "type": 593967770,
+    "order": 1,
+    "createdAt": 1771577209801,
+    "updatedAt": 1772008987754,
+    "product": 39222565,
+    "answerblock": {
+      "gebitskleur": "paars",
+      "avamax": true
+    },
+    "files": [
+      {
+        "filename": "866430848.jpg",
+        "originalname": "dog.jpg"
+      },
+      {
+        "filename": "582076566.jpg",
+        "originalname": "dog (1).jpg"
+      }
+    ],
+    "ancestors": [
+      332677061,
+      701410116,
+      774560801,
+      756541994,
+      521587294
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 237891284,
+    "name": "order 2",
+    "parent": 521587294,
+    "type": 593967770,
+    "order": 1,
+    "createdAt": 1771585064595,
+    "updatedAt": 1771586981749,
+    "product": 954796210,
+    "answerblock": {
+      "comment": "hoi pipeloi",
+      "schroeven": true
+    },
+    "ancestors": [
+      332677061,
+      701410116,
+      774560801,
+      756541994,
+      521587294
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 832816893,
+    "name": "proxyschroeven",
+    "parent": 954796210,
+    "type": 181100794,
+    "ref": 933488287,
+    "order": 1,
+    "createdAt": 1771585211211,
+    "updatedAt": 1771585219675,
+    "ancestors": [
+      332677061,
+      701410116,
+      352650108,
+      954796210
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 417067708,
+    "name": "proxycomment",
+    "parent": 954796210,
+    "type": 181100794,
+    "ref": 332061721,
+    "order": 1,
+    "createdAt": 1771585268186,
+    "updatedAt": 1771585273807,
+    "ancestors": [
+      332677061,
+      701410116,
+      352650108,
+      954796210
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 400895408,
+    "name": "files",
+    "createdAt": 1771597560796,
+    "updatedAt": 1772204527115,
+    "ancestors": [],
+    "type": 303978464,
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 839523525,
+    "name": "dog.jpg",
+    "nameondisk": "839523525.jpg",
+    "mimetype": "image/jpeg",
+    "size": 179327,
+    "type": 240420793,
+    "order": 1,
+    "createdAt": 1771597560827,
+    "updatedAt": 1771597560827,
+    "ancestors": [],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 940627136,
+    "parent": 521587294,
+    "name": "new order",
+    "type": 593967770,
+    "product": 954796210,
+    "files": [],
+    "answerblock": {},
+    "order": 1,
+    "createdAt": 1771599907933,
+    "updatedAt": 1771600024842,
+    "ancestors": [
+      332677061,
+      701410116,
+      774560801,
+      756541994,
+      521587294
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 644604877,
+    "parent": 521587294,
+    "name": "new order",
+    "type": 593967770,
+    "product": 954796210,
+    "files": [],
+    "answerblock": {},
+    "order": 1,
+    "createdAt": 1771601691004,
+    "updatedAt": 1771601691004,
+    "ancestors": [
+      332677061,
+      701410116,
+      774560801,
+      756541994,
+      521587294
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 544087753,
+    "parent": 521587294,
+    "name": "new order",
+    "type": 593967770,
+    "product": 954796210,
+    "files": [],
+    "answerblock": {},
+    "order": 1,
+    "createdAt": 1771601692971,
+    "updatedAt": 1771601692971,
+    "ancestors": [
+      332677061,
+      701410116,
+      774560801,
+      756541994,
+      521587294
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 906282649,
+    "name": "proxypraktijk",
+    "parent": 558707662,
+    "type": 181100794,
+    "ref": 730166731,
+    "order": 1,
+    "createdAt": 1772199571034,
+    "updatedAt": 1772199581195,
+    "ancestors": [
+      332677061,
+      98569176,
+      375177495,
+      642032032,
+      558707662
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 238614892,
+    "name": "proxypatient",
+    "parent": 558707662,
+    "type": 181100794,
+    "ref": 860885032,
+    "order": 1,
+    "createdAt": 1772199597569,
+    "updatedAt": 1772199631573,
+    "ancestors": [
+      332677061,
+      98569176,
+      375177495,
+      642032032,
+      558707662
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 357409781,
+    "name": "proxybehandelplan",
+    "parent": 558707662,
+    "type": 181100794,
+    "ref": 952490518,
+    "order": 1,
+    "createdAt": 1772199605512,
+    "updatedAt": 1772199641139,
+    "ancestors": [
+      332677061,
+      98569176,
+      375177495,
+      642032032,
+      558707662
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 120953258,
+    "name": "proxyproduct",
+    "parent": 558707662,
+    "type": 181100794,
+    "ref": 649500434,
+    "order": 1,
+    "createdAt": 1772199618928,
+    "updatedAt": 1772199646562,
+    "ancestors": [
+      332677061,
+      98569176,
+      375177495,
+      642032032,
+      558707662
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 878364520,
+    "name": "proxyquestion",
+    "parent": 558707662,
+    "type": 181100794,
+    "ref": 378452893,
+    "order": 1,
+    "createdAt": 1772199725944,
+    "updatedAt": 1772199754315,
+    "ancestors": [
+      332677061,
+      98569176,
+      375177495,
+      642032032,
+      558707662
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 649689,
+    "name": "proxyorder",
+    "parent": 558707662,
+    "type": 181100794,
+    "ref": 593967770,
+    "order": 1,
+    "createdAt": 1772199737649,
+    "updatedAt": 1772199758024,
+    "ancestors": [
+      332677061,
+      98569176,
+      375177495,
+      642032032,
+      558707662
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 512936042,
+    "name": "proxyanswer",
+    "parent": 558707662,
+    "type": 181100794,
+    "ref": 132218155,
+    "order": 1,
+    "createdAt": 1772199744488,
+    "updatedAt": 1772199761972,
+    "ancestors": [
+      332677061,
+      98569176,
+      375177495,
+      642032032,
+      558707662
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 183067641,
+    "name": "proxycontainer",
+    "parent": 558707662,
+    "type": 181100794,
+    "ref": 303978464,
+    "order": 1,
+    "createdAt": 1772200437265,
+    "updatedAt": 1772200442963,
+    "ancestors": [
+      332677061,
+      98569176,
+      375177495,
+      642032032,
+      558707662
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 272830378,
+    "name": "proxyproxy",
+    "parent": 558707662,
+    "type": 181100794,
+    "ref": 181100794,
+    "order": 1,
+    "createdAt": 1772201024568,
+    "updatedAt": 1772201034253,
+    "ancestors": [
+      332677061,
+      98569176,
+      375177495,
+      642032032,
+      558707662
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 213538995,
+    "name": "proxyappdef",
+    "parent": 558707662,
+    "type": 181100794,
+    "ref": 33264638,
+    "order": 1,
+    "createdAt": 1772201123866,
+    "updatedAt": 1772201136890,
+    "ancestors": [
+      332677061,
+      98569176,
+      375177495,
+      642032032,
+      558707662
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 65494464,
+    "name": "proxyentity",
+    "parent": 558707662,
+    "type": 181100794,
+    "ref": 34338359,
+    "order": 1,
+    "createdAt": 1772201127251,
+    "updatedAt": 1772201139609,
+    "ancestors": [
+      332677061,
+      98569176,
+      375177495,
+      642032032,
+      558707662
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 812230589,
+    "name": "email",
+    "parent": 84034547,
+    "type": 68130130,
+    "order": 1,
+    "createdAt": 1772787521936,
+    "updatedAt": 1773225719863,
+    "datatype": 75908361,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      84034547
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 615618588,
+    "name": "beheerderrights",
+    "parent": 701410116,
+    "type": 955455650,
+    "order": 1,
+    "createdAt": 1773412112048,
+    "updatedAt": 1774624589677,
+    "create": true,
+    "delete": true,
+    "excludeself": false,
+    "read": true,
+    "role": null,
+    "update": true,
+    "user": 725652960,
+    "write": false,
+    "ancestors": [
+      332677061,
+      701410116
+    ],
+    "rightrole": null,
+    "children": [],
+    "codeid": "",
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 519269557,
+    "name": "codeid",
+    "parent": 34338359,
+    "type": 68130130,
+    "order": 1,
+    "createdAt": 1773752010073,
+    "updatedAt": 1773752047295,
+    "datatype": 75908361,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      34338359
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 281116083,
+    "name": "proxyuser",
+    "parent": 558707662,
+    "type": 181100794,
+    "ref": 84034547,
+    "order": 1,
+    "createdAt": 1773775618407,
+    "updatedAt": 1773775625323,
+    "ancestors": [
+      332677061,
+      98569176,
+      375177495,
+      642032032,
+      558707662
+    ],
+    "children": [],
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 933918228,
+    "name": "praktijk lijder",
+    "parent": 901125646,
+    "type": 171648616,
+    "order": 1,
+    "createdAt": 1773957017264,
+    "updatedAt": 1773957065626,
+    "children": [
+      847490176
+    ],
+    "ancestors": [
+      332677061,
+      98569176,
+      375177495,
+      642032032,
+      558707662,
+      901125646
+    ],
+    "codeid": "",
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 847490176,
+    "name": "praktijk medewerker",
+    "parent": 933918228,
+    "type": 171648616,
+    "order": 1,
+    "createdAt": 1773957038683,
+    "updatedAt": 1773957081286,
+    "children": [],
+    "ancestors": [
+      332677061,
+      98569176,
+      375177495,
+      642032032,
+      558707662,
+      901125646,
+      933918228
+    ],
+    "codeid": "",
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 571367103,
+    "name": "create",
+    "parent": 955455650,
+    "type": 68130130,
+    "createdAt": 1774610208180,
+    "updatedAt": 1774610232209,
+    "order": 1,
+    "datatype": 88292001,
+    "pointertype": null,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      955455650
+    ],
+    "children": [],
+    "codeid": "",
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 725057163,
+    "name": "update",
+    "parent": 955455650,
+    "type": 68130130,
+    "createdAt": 1774610211771,
+    "updatedAt": 1774610236958,
+    "order": 1,
+    "datatype": 88292001,
+    "pointertype": null,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      955455650
+    ],
+    "children": [],
+    "codeid": "",
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 420239359,
+    "name": "delete",
+    "parent": 955455650,
+    "type": 68130130,
+    "createdAt": 1774610216019,
+    "updatedAt": 1774610241941,
+    "order": 1,
+    "datatype": 88292001,
+    "pointertype": null,
+    "ancestors": [
+      332677061,
+      98569176,
+      37880666,
+      955455650
+    ],
+    "children": [],
+    "codeid": "",
+    "allowedrolescreate": [],
+    "allowedrolesdelete": [],
+    "allowedrolesread": [],
+    "allowedrolesupdate": []
+  },
+  {
+    "_id": 793360321,
+    "name": "new entity",
+    "parent": 427468058,
+    "type": 34338359,
+    "order": 1,
+    "createdAt": 1774610549394,
+    "updatedAt": 1774610549394,
+    "children": [],
+    "ancestors": [
+      332677061,
+      701410116,
+      774560801,
+      756541994,
+      427468058
+    ],
+    "allowedrolesread": [],
+    "allowedrolesupdate": [],
+    "allowedrolesdelete": [],
+    "allowedrolescreate": [],
+    "level": 0
+  }
+]

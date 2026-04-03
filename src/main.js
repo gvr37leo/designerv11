@@ -31,8 +31,7 @@
 //thin tree
 //only load visible tree nodes
 //304 no changes response from server
-//mongodb indices
-//ancestor array
+
 
 //maybe get a call to get all the type info and stuff like that first real quick
 //have tree loading done only on pages that have the tree view
@@ -50,15 +49,17 @@
 //users onder een sectie zetten die alleen hogere users kunnen editen is een manier om te voorkomen dat ze aan hun rol zitten
 //maar dan kunnen ze niet zomaar hun account editen om bijvoorbeeld naam, email of wat dan ook aan te passen
 
-//admin
-//beheerder
-//medewerker
-
-//praktijkleider
-//praktijkmedewerker
 
 //you can still navigate and edit to entities you're not allowed to edit or see
 //pre-calculate ancestors,children,and the roles that are allowed to see,update,delete,create on a node
+
+//an allowedroles array would be nice/generated runtime on serverside?
+//update and delete are secured
+//search and createmany still need attention
+//typeinfo still needs to be read by all regardless of role
+
+//todo docker container opzetten en automatic github sync
+//specialized import call
 
 async function login(username,password){
     var res = await fetch('/api/login',{
@@ -135,7 +136,7 @@ var dialogel = crend('dialog','',{closedby:"any"})
 var detailview = new DetailView()
 var listview = new ListView();
 var treeview = new Treeview();
-
+var lastretrievedtimestamp = null
 
 
 async function refresh(){

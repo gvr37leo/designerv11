@@ -1,4 +1,24 @@
-async function createMany(data){
+// async function createMany(data){
+//     return fetch('/api/create',{
+//         method:'POST',
+//         headers:{
+//             'Content-Type': 'application/json',
+//             'sessionid':getSessionId(),
+//         },
+//         body:JSON.stringify(data)
+//     }).then(async res => {
+//         if(res.ok){
+//             return true
+//         }else{
+//             var data = await res.json()
+//             throw new Error(data.error)
+//         }
+//     }).catch((reason) => {
+//         toastr.error('Error', reason)
+//     })
+// }
+
+async function createOne(data){
     return fetch('/api/create',{
         method:'POST',
         headers:{
@@ -16,10 +36,6 @@ async function createMany(data){
     }).catch((reason) => {
         toastr.error('Error', reason)
     })
-}
-
-async function createOne(data){
-    return createMany([data])
 }
 
 async function query(query,sort,derefs = []){

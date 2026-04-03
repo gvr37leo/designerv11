@@ -20,8 +20,8 @@ async function drawHeader(){
                     if(file){
                         const text = await file.text()
                         const data = JSON.parse(text)
-
-                        const res = await createMany(data)
+                        //todo, use import api instead
+                        // const res = await createMany(data)
                     }
                 }
                 fileInput.click()

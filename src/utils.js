@@ -51,5 +51,6 @@ function duplicateTree(nodeid){
     }
     
     // Create all duplicated nodes
-    return createMany(duplicatedNodes);
+    // todo should use something else, create only supports 1 at a time
+    // return createMany(duplicatedNodes);
 }
