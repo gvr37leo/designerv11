@@ -1,4 +1,3 @@
-# Use the official Node.js 22 Alpine image
 FROM node:24-alpine
 
 # Set the working directory
