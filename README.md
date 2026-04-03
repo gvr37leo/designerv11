@@ -24,9 +24,9 @@ This is a Node.js application that uses MongoDB for data storage.
    This will:
    - Build the Node.js application image
    - Start MongoDB
-   - Start the application on port 8000
+   - Start the application on port 80
 
-5. Access the application at `http://localhost:8000`
+5. Access the application at `http://localhost:80`
 
 ## Stopping the Application
 

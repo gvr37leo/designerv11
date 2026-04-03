@@ -29,7 +29,6 @@ app.use(express.static('./'))
 
 let url = process.env.MONGO_URL || 'mongodb://localhost:27017';
 // https://cloud.mongodb.com/v2/5f63b72f634422449781b510#/metrics/replicaSet/661f9cbfaae012631f280233/explorer/testdb/firstcollection/find
-let databasename = 'testdb'
 let port = 8000
 app.listen(port, () => {
     console.log(`listening on ${8000}`)
@@ -44,8 +43,8 @@ async function start(){
     try {
         await client.connect()
         console.log('connected to mongo');
-        let db = client.db(databasename)
-        let collection = db.collection('firstcollection')
+        let db = client.db('supradb')
+        let collection = db.collection('entities')
 
         var collectionsize = await collection.count()
         if(collectionsize == 0){
