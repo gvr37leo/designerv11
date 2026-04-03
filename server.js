@@ -53,9 +53,9 @@ async function start(){
                 const data = fs.readFileSync('./init.json', 'utf8')
                 const jsonData = JSON.parse(data)
                 const result = await collection.insertMany(jsonData)
-                res.send(result)
+                console.log('copied init.json into database')
             } catch (error) {
-                res.status(500).send({ error: error.message })
+                console.log(error.message)
             }
         }
 
