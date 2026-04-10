@@ -631,7 +631,7 @@ async function start(){
             res.send({message:"success",result,result2})
         })
 
-        app.get('/*', function(req, res) {
+        app.get('/*splat', function(req, res) {
             res.sendFile(path.resolve('index.html'));
         });
 
@@ -693,6 +693,14 @@ async function start(){
             res.send(insertresult)
         })
 
+        app.use((err, req, res, next) => {
+            console.error(err.stack);
+            res.status(500).json({
+                status: 'error',
+                message: err.message || 'Internal Server Error'
+            });
+        });
+
         async function updateancestors(parent,entity){
             entity.ancestors = [...parent.ancestors,parent._id]
             await collection.findOneAndUpdate({_id:entity._id},{$set:entity})
@@ -728,7 +736,7 @@ async function start(){
         }
 
     } catch (error) {
-        console.error('Connection to MongoDB Atlas failed!\n retryng in 5 sec', error);
+        console.error('Connection to MongoDB failed!\n retryng in 5 sec', error);
         setTimeout(() => {
             start()
         }, 5000);
