@@ -14,6 +14,12 @@ async function detailPage(id){
         toastr.error('Error', reason)
     })
 
+    if(frontloaddata?.error){
+        logout()
+        router.navigate('/login')
+        return
+    }
+
     frontloaddata.user
     frontloaddata.tree
     frontloaddata.listviewdata

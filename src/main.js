@@ -61,6 +61,12 @@
 //todo docker container opzetten en automatic github sync
 //specialized import call
 
+//add .env file
+//mongodb password
+//email password
+//CI CD
+// image on dockerhub
+
 async function login(username,password){
     var res = await fetch('/api/login',{
         method:'POST',
@@ -85,6 +91,7 @@ async function login(username,password){
 
 function logout(){
     localStorage.removeItem('currentuserid')
+    localStorage.removeItem('sessionid')
 }
 
 function isLoggedIn(){

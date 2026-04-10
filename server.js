@@ -416,6 +416,10 @@ async function start(){
             //get table listview data
             var sessionid = parseInt(req.get('sessionid'))
             var user = await getUserWithSessionId(sessionid)
+            if(user == null){
+                res.status(404).send({error:"user not found"})
+            }
+            //this causes a nullpointer if the user sends a wrong or outdated sessionid
             user.rolederef = await collection.findOne({_id:user.role})
             result.user = user
             result.tree = await collection.find({}).toArray()
